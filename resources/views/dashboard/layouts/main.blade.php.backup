@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ $title ?? 'Dashboard' }}</title>
+        
+        @yield('head-meta-field')
+        <title>@yield('titlePage', 'AGT')</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link rel="icon" href="{{asset('components/icon/logo/logoD.svgcomponents/logoD.svg')}}" type="image/x-icon">
+        <link rel="stylesheet" href="{{ asset('main/css/s.css') }}">
+        <link rel="stylesheet" href="{{ asset('main/css/header.css') }}">
+        <link rel="stylesheet" href="{{ asset('main/css/font/poppins.css') }}">
+        <link rel="stylesheet" href="{{ asset('main/css/font/system-ui sans.css') }}">
+        @yield('head-link-field')
+        <script src="https://kit.fontawesome.com/15f35fc9f3.js" crossorigin="anonymous"></script>
+        <script src="//unpkg.com/alpinejs" defer></script>
+        <script src="{{ asset('main/js/searchDoc.js') }}" wire:ignore></script>
+        {{-- <script src="{{ asset('main/js/s.js') }}"></script> --}}
+        @yield('head-style-field')
+        
+        @livewireStyles
+    </head>
+    <body>
+        <header class="w-full py-2 px-4 bg-gray-900 z-[100] fixed top-0 transition-all" aria-label="Global Navigation" wire:ignore>
+            <div class="cHeadDashboard flex items-center justify-between">
+                @include('dashboard.layouts.header')
+            </div>
+        </header>
+        <div class="dashboard-content flex">
+            <aside id="id-asideNavDashboard" class="ctr-asideNavDashboard shrink-0 h-[100vh] bg-gray-900 transition-all sticky top-0 overflow-hidden w-0 sm:w-auto xl:w-80 -translate-x-full sm:translate-x-0" aria-label="Main Dashboard Navigation" wire:ignore>
+            {{-- <aside id="id-asideNavDashboard" class="ctr-asideNavDashboard shrink-0 h-[100vh] bg-gray-900 transition-all sticky top-0 overflow-hidden" wire:ignore> --}}
+                {{-- <div class="cAsideNavDashboard h-full flex flex-col max-xl:items-center max-xl:justify-center pt-12 md:pt-14 lg:pt-16 xl:pt-20"> --}}
+                <div class="cAsideNavDashboard mt-24 h-full flex flex-col max-xl:items-center max-xl:justify-center">
+                    @include('dashboard.layouts.sidebar')
+                </div>
+                {{-- @if (array_search('dashboard', explode('/', url()->current()))) --}}
+                {{-- @if (Str::contains(request()->route()->getName(), 'main'))
+                    @livewire('Dashboard.Sidebar.SidebarMain')
+                @endif
+                @if (Str::contains(request()->route()->getName(), 'profile'))
+                    @livewire('SidebarProfile')
+                @endif --}}
+            </aside>
+            <div class="main-content overflow-c overflow-c-gray mt-24 flex-grow" aria-label="Container Main Content">
+                <main class="ml-0 sm:ml-2 h-[500vh] bg-white mt-4">
+                    @if (Str::contains(request()->route()->getName(), 'setting'))
+                        @include('dashboard.pages.profile.urlPathFrom')
+                    @endif
+                    {{-- <header aria-label="Header Main Content">
+                        Header content
+                    </header> --}}
+                    <div class="cMainContentDashboard {{ Str::contains(request()->route()->getName(), 'setting') ? 'mt-10' : '' }} p-2" aria-label="Main Content">
+                        {{ $slot }}
+                        
+                    </div>
+                </main>
+            </div>
+        </div>
+    </body>
+    @livewireScripts
+    <script>
+        document.addEventListener('livewire:load', function () {
+            Livewire.hook('message.sent', () => {
+                // Mengganti title halaman (jika ingin)
+                document.title = 'Loading...';
+            });
+    
+            Livewire.hook('message.processed', () => {
+                // Mengembalikan title ke normal setelah load selesai
+                document.title = 'Dashboard'; // Ganti dengan title asli halaman
+            });
+        });
+    </script>
+    
+    @yield('script-dashboard-field')
+</html>

@@ -1,0 +1,667 @@
+<div>
+    <header>
+        <nav class="bg-gray-800 border-gray-200 px-4 lg:px-6 py-2.5">
+            <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
+                <a href="#" class="flex items-center">
+                    <img src="assets/img/logo/favicon.png" class="h-6 mr-3 sm:h-9" alt="AST Logo" />
+                    <span class="self-center text-xl font-semibold whitespace-nowrap text-white">AST</span>
+                </a>
+                <div class="flex items-center lg:order-2">
+                   <a href="{{ route('auth.login') }}"
+                    class="text-white bg-teal-500 hover:bg-teal-700 focus:ring-4 focus:ring-teal-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none">Log in</a>
+                    <a href="{{ route('auth.register') }}"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none">Daftar Sekarang</a>
+                    <button data-collapse-toggle="mobile-menu-2" type="button"
+                        class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                        aria-controls="mobile-menu-2" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+                    <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                        <li>
+                            <a href="{{ route('guest.main') }}"
+                                class="block py-2 pl-3 pr-4 text-white bg-white rounded lg:bg-transparent lg:text-white lg:p-0"
+                                aria-current="page">Home</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('guest.about') }}"
+                                class="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-white-700 lg:p-0">About
+                                Us</a>
+                        </li>
+                        <li>
+                            <div class="relative">
+                                <button id="dropdownFiturButton" data-dropdown-toggle="dropdownFitur"
+                                    class="block py-2 pl-3 pr-4 text-white hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-white lg:p-0">
+                                    Fitur
+                                    <svg class="w-2.5 h-2.5 ms-3 inline" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m1 1 4 4 4-4" />
+                                    </svg>
+                                </button>
+                                <div id="dropdownFitur"
+                                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                                    <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownFiturButton">
+                                        <li>
+                                            <a href="{{ route('guest.fitur.signe') }}"
+                                                class="block px-4 py-2 hover:bg-gray-100">E-Certificate</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('guest.signv.ecs') }}"
+                                                class="block px-4 py-2 hover:bg-gray-100">E-Signature</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="relative">
+                                <button id="dropdownContactButton" data-dropdown-toggle="dropdownContact"
+                                    class="block py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0">
+                                    Contact
+                                    <svg class="w-2.5 h-2.5 ms-3 inline" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m1 1 4 4 4-4" />
+                                    </svg>
+                                </button>
+                                <div id="dropdownContact"
+                                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                                    <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownContactButton">
+                                        <li>
+                                            <a href="{{ route('guest.support') }}"
+                                                class="block px-4 py-2 hover:bg-gray-100">Support</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('guest.contact.main') }}"
+                                                class="block px-4 py-2 hover:bg-gray-100">FAQs</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <section class=" bg-gray-900">
+            <div class="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-16 lg:px-12">
+                <div class="flex flex-col lg:flex-row lg:items-center">
+                    <div class="lg:w-1/2">
+                        <h2 class="max-w-lg text-3xl font-semibold leading-normal  text-white">
+                            Authentic
+                            Signature Technology</h2>
+                        <p class="text-left rtl:text-right text-gray-500 ">
+                            Authentic Signature Technology adalah solusi inovatif untuk penandatanganan dokumen secara
+                            elektronik yang aman, cepat, dan mudah digunakan. Kami memungkinkan individu dan bisnis
+                            untuk
+                            menandatangani dokumen dari mana saja dengan proses yang efisien dan terpercaya.
+                        </p>
+                        <div class="flex justify-center mt-6 overflow-hidden">
+                            <a href="{{ route('auth.register') }}"
+                                class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 ">
+                                Get Started
+                                <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="overflow-hidden lg:w-1/2 flex justify-center mt-6 lg:mt-0">
+                        <img class=" h-auto max-w-lg ms-auto" src="assets/img/image-hero.38104a5e.webp"
+                            alt="image description">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="bg-white dark:bg-gray-900">
+            <div class="section-container-hero flex flex-col lg:flex-row items-center lg:items-start gap-6 p-4 lg:p-10">
+                <!-- Main Image -->
+                <div class="section-container-hero-image flex-shrink-0 w-full lg:w-1/2">
+                    <img src="assets/img/sign-document-anywhere.png" alt="Sign Document Anywhere"
+                        class="w-full h-auto rounded-md shadow-md">
+                </div>
+                <!-- Content Section -->
+                <div
+                    class="section-container-hero-content flex flex-col justify-center text-left lg:text-left w-full lg:w-1/2 space-y-4 lg:mt-8">
+                    <!-- Icon -->
+                    <div class="section-container-hero-content-icon flex justify-start mt-4 lg:mt-8">
+                        <svg class="h-12 w-12 text-blue-500" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                        </svg>
+                    </div>
+                    <!-- Title -->
+                    <h1
+                        class="section-container-hero-content-title text-white text-2xl lg:text-4xl font-bold leading-tight mt-2 lg:mt-6">
+                        Tanda tangan digital tanpa batas, dari mana saja
+                    </h1>
+                    <!-- Subtitle -->
+                    <p class="section-container-hero-content-subheadline text-white text-sm lg:text-lg mt-2 lg:mt-4">
+                        Tanda tangan dan kirim dokumen dari mana saja dengan mudah. Semua secara <i>real-time</i> dengan
+                        ASTSign.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="relative px-5 py-16 bg-white dark:bg-gray-900 md:py-3 lg:px-20">
+            <div class="container my-16 md:mt-24">
+                <div class="grid grid-cols-1 pb-8 text-center">
+                    <h4
+                        class="mb-4 text-xl font-semibold leading-normal text-gray-900 dark:text-white md:text-4xl lg:text-5xl md:leading-normal">
+                        Mengapa Memilih <span class="text-yellow-500">Authentic Signature?</span>
+                    </h4>
+                </div>
+                <div class="grid md:grid-cols-3 grid-cols-1 gap-[30px] gap-y-5 lg:px-10">
+                    <!-- Item -->
+                    <div
+                        class="py-5 text-center transition-all duration-500 ease-in-out border border-gray-300 rounded-xl group hover:ring-2 hover:ring-yellow-500 hover:shadow-lg hover:scale-105">
+                        <div class="flex justify-center">
+                            <img alt="Legalitas" class="w-24 h-24"
+                                src="/assets/img/Icon Legalitas/Legalitas 64 dpi.svg">
+                        </div>
+                        <div class="mt-6">
+                            <span
+                                class="text-2xl font-semibold text-gray-800 dark:text-white group-hover:text-yellow-500">
+                                Sah / Legal
+                            </span>
+                            <p
+                                class="px-3 mt-4 text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-200">
+                                Berdasarkan UU No 19 Tahun 2016 tentang Perubahan atas UU No 11 Tahun 2008 tentang
+                                Informasi dan
+                                Transaksi Elektronik.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Item -->
+                    <div
+                        class="py-5 text-center transition-all duration-500 ease-in-out border border-gray-300 rounded-xl group hover:ring-2 hover:ring-yellow-500 hover:shadow-lg hover:scale-105">
+                        <div class="flex justify-center">
+                            <img alt="Keamanan" class="w-24 h-24"
+                                src="/assets/img/Icon Keamanan/Keamanan 64 dpi.svg">
+                        </div>
+                        <div class="mt-6">
+                            <span
+                                class="text-2xl font-semibold text-gray-800 dark:text-white group-hover:text-yellow-500">
+                                Keamanan &amp; Privasi
+                            </span>
+                            <p
+                                class="px-3 mt-4 text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-200">
+                                Menjamin keamanan data dengan teknologi kriptografi dan enkripsi end-to-end.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Item -->
+                    <div
+                        class="py-5 text-center transition-all duration-500 ease-in-out border border-gray-300 rounded-xl group hover:ring-2 hover:ring-yellow-500 hover:shadow-lg hover:scale-105">
+                        <div class="flex justify-center">
+                            <img alt="Hemat Waktu" class="w-24 h-24"
+                                src="/assets/img/Icon Hemat waktu/Hemat Waktu 64 dpi.svg">
+                        </div>
+                        <div class="mt-6">
+                            <span
+                                class="text-2xl font-semibold text-gray-800 dark:text-white group-hover:text-yellow-500">
+                                Hemat Waktu
+                            </span>
+                            <p
+                                class="px-3 mt-4 text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-200">
+                                Menggunakan Tandatangan Elektronik mengurangi waktu yang dibutuhkan untuk mencetak dan
+                                mengirim
+                                dokumen fisik.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Item -->
+                    <div
+                        class="py-5 text-center transition-all duration-500 ease-in-out border border-gray-300 rounded-xl group hover:ring-2 hover:ring-yellow-500 hover:shadow-lg hover:scale-105">
+                        <div class="flex justify-center">
+                            <img alt="Hemat Biaya" class="w-24 h-24"
+                                src="/assets/img/Icon Hemat biaya/Hemat Biaya 64 dpi.svg">
+                        </div>
+                        <div class="mt-6">
+                            <span
+                                class="text-2xl font-semibold text-gray-800 dark:text-white group-hover:text-yellow-500">
+                                Hemat Biaya
+                            </span>
+                            <p
+                                class="px-3 mt-4 text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-200">
+                                Mengurangi pengeluaran untuk kertas, tinta, dan pengiriman dokumen fisik dengan
+                                menggunakan
+                                tandatangan elektronik.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Item -->
+                    <div
+                        class="py-5 text-center transition-all duration-500 ease-in-out border border-gray-300 rounded-xl group hover:ring-2 hover:ring-yellow-500 hover:shadow-lg hover:scale-105">
+                        <div class="flex justify-center">
+                            <img alt="Mudah Digunakan" class="w-24 h-24"
+                                src="/assets/img/Icon Mudah Digunakan/Mudah Digunakan 64 dpi.svg">
+                        </div>
+                        <div class="mt-6">
+                            <span
+                                class="text-2xl font-semibold text-gray-800 dark:text-white group-hover:text-yellow-500">
+                                Mudah Digunakan
+                            </span>
+                            <p
+                                class="px-3 mt-4 text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-200">
+                                Desain antarmuka yang intuitif memudahkan pengguna dari berbagai latar belakang untuk
+                                mengakses
+                                dan menggunakan layanan.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Item -->
+                    <div
+                        class="py-5 text-center transition-all duration-500 ease-in-out border border-gray-300 rounded-xl group hover:ring-2 hover:ring-yellow-500 hover:shadow-lg hover:scale-105">
+                        <div class="flex justify-center">
+                            <img alt="Ramah Lingkungan" class="w-24 h-24"
+                                src="/assets/img/Icon Ramah Lingkungan/Ramah Lingkungan 64 dpi.svg">
+                        </div>
+                        <div class="mt-6">
+                            <span
+                                class="text-2xl font-semibold text-gray-800 dark:text-white group-hover:text-yellow-500">
+                                Ramah Lingkungan
+                            </span>
+                            <p
+                                class="px-3 mt-4 text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-200">
+                                Mengurangi penggunaan kertas dan emisi karbon dari pengiriman dokumen fisik, mendukung
+                                pelestarian lingkungan.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- Clients Section -->
+        <section class="w-full py-7 bg-white overflow-hidden">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl md:text-3xl font-bold text-blue-700">Our Clients</h2>
+                </div>
+                <div class="flex" id="logoRow">
+                    <div class="logo-container flex items-center flex-nowrap justify-start" id="logoContainer">
+                        <!-- Logos -->
+                        {{-- <div class="client-logo flex justify-center items-center p-2 min-w-28 h-28 sm:h-32"> --}}
+                        <div class="client-logo flex justify-center items-center p-2 min-w-32 max-h-32">
+                            <img src="assets/img/clients/juicenation.png"
+                                class="img-fluid w-full h-full object-cover object-center" alt="Juicenation">
+                        </div>
+                        {{-- <div class="client-logo flex justify-center items-center p-2 min-w-28 h-28 sm:h-32"> --}}
+                        <div class="client-logo flex justify-center items-center p-4 min-w-32 max-h-32">
+                            <img src="assets/img/clients/merz.png"
+                                class="img-fluid w-full h-full object-cover object-center" alt="Merz">
+                        </div>
+                        {{-- <div class="client-logo flex justify-center items-center p-2 min-w-28 h-28 sm:h-32"> --}}
+                        <div class="client-logo flex justify-center items-center p-4 min-w-32 max-h-32">
+                            <img src="assets/img/clients/happy.png"
+                                class="img-fluid w-full h-full object-cover object-center" alt="Happy">
+                        </div>
+                        {{-- <div class="client-logo flex justify-center items-center p-2 min-w-28 h-28 sm:h-32"> --}}
+                        <div class="client-logo flex justify-center items-center p-2 min-w-32 max-h-32">
+                            <img src="assets/img/clients/bromlin.png"
+                                class="img-fluid w-full h-full object-cover object-center" alt="Bromlin">
+                        </div>
+                        {{-- <div class="client-logo flex justify-center items-center p-2 min-w-28 h-28 sm:h-32"> --}}
+                        <div class="client-logo flex justify-center items-center p-2 min-w-32 max-h-32">
+                            <img src="assets/img/clients/brodo-seeklogo-4.svg"
+                                class="img-fluid w-full h-full object-cover object-center" alt="Brodo">
+                        </div>
+                        {{-- <div class="client-logo flex justify-center items-center p-2 min-w-28 h-28 sm:h-32"> --}}
+                        <div class="client-logo flex justify-center items-center p-2 min-w-32 max-h-32">
+                            <img src="assets/img/clients/sc.png"
+                                class="img-fluid w-full h-full object-cover object-center" alt="SC">
+                        </div>
+                        {{-- <div class="client-logo flex justify-center items-center p-2 min-w-28 h-28 sm:h-32"> --}}
+                        <div class="client-logo flex justify-center items-center p-2 min-w-32 max-h-32">
+                            <img src="assets/img/clients/eclipse.png"
+                                class="img-fluid w-full h-full object-cover object-center" alt="Eclipse">
+                        </div>
+                        {{-- <div class="client-logo flex justify-center items-center p-2 min-w-28 h-28 sm:h-32"> --}}
+                        <div class="client-logo flex justify-center items-center p-2 min-w-32 max-h-32">
+                            <img src="assets/img/clients/xtc.png"
+                                class="img-fluid w-full h-full object-cover object-center" alt="XTC">
+                        </div>
+                        {{-- <div class="client-logo flex justify-center items-center p-2 min-w-28 h-28 sm:h-32"> --}}
+                        <div class="client-logo flex justify-center items-center p-2 min-w-32 max-h-32">
+                            <img src="assets/img/clients/ariona.png"
+                                class="img-fluid w-full h-full object-cover object-center" alt="Ariona">
+                        </div>
+                        {{-- <div class="client-logo flex justify-center items-center p-2 min-w-28 h-28 sm:h-32"> --}}
+                        <div class="client-logo flex justify-center items-center p-2 min-w-32 max-h-32">
+                            <img src="assets/img/clients/kaula.png"
+                                class="img-fluid w-full h-full object-cover object-center" alt="Kaula">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script>
+            const logoContainer = document.getElementById('logoContainer');
+            const logoRow = document.getElementById('logoRow');
+            let position = logoRow.offsetWidth;
+
+            // Function to set scroll speed based on screen width
+            function getScrollSpeed() {
+                const screenWidth = window.innerWidth;
+                if (screenWidth >= 1024) {
+                    return 1; // Slow speed for desktop screens
+                } else if (screenWidth >= 768) {
+                    return 1.5; // Medium speed for tablets
+                } else {
+                    return 2; // Fast speed for mobile screens
+                }
+            }
+
+            function scrollLogos() {
+                position -= getScrollSpeed(); // Adjust position based on screen size
+
+                // Reset position once logos scroll out of view
+                if (position <= -logoContainer.offsetWidth) {
+                    position = logoRow.offsetWidth;
+                }
+
+                logoContainer.style.transform = `translateX(${position}px)`;
+                requestAnimationFrame(scrollLogos); // Repeat the function
+            }
+            // Start the animation
+            scrollLogos();
+            // Adjust position on window resize for responsiveness
+            window.addEventListener('resize', () => {
+                position = logoRow.offsetWidth;
+            });
+        </script>
+        <!-- end Clients Section -->
+        <!-- support Section -->
+        <section class="bg-white w-full overflow-hidden py-7">
+            <div class="container mx-auto px-4" data-aos="fade-up">
+                <!-- Section Heading -->
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl md:text-3xl font-bold text-blue-700">Support by</h2>
+                </div>
+                <!-- Logos Row with Flex Alignment -->
+                <div class="flex flex-wrap  justify-center gap-3" id="logoRow">
+                    <!-- Logos -->
+                    <div class="client-logo flex justify-center items-center p-2 min-w-32 max-h-32">
+                        <img src="{{  }}"
+                            class="img-fluid w-1/2 sm:w-3/4 md:w-full h-auto object-contain" alt="Viisa">
+                    </div>
+                    <div class="client-logo flex justify-center items-center p-2 w-1/2 sm:w-1/4 md:w-1/6 lg:w-1/5">
+                        <img src="{{ asset('assets/img/indigo.png') }}"
+                            class="img-fluid w-3/4 sm:w-full h-auto object-contain" alt="Indigo">
+                    </div>
+                    <div class="client-logo flex justify-center items-center p-2 w-1/2 sm:w-1/4 md:w-1/6 lg:w-1/8">
+                        <img src="assets/img/support/1594112709392_compress_PNG Logo Primer Telkom.png"
+                            class="img-fluid w-3/4 sm:w-full h-auto object-contain" alt="Telkom Indonesia">
+                    </div>
+                    <div class="client-logo flex justify-center items-center p-2 w-1/2 sm:w-1/4 md:w-1/6 lg:w-1/8">
+                        <img src="assets/img/support/aws2.png" class="img-fluid w-3/4 sm:w-full h-auto object-contain"
+                            alt="AWS">
+                    </div>
+                </div>
+        </section>
+        <!-- tutorSection -->
+        <section class="bg-white dark:bg-gray-900 features block features-block--alt theme--sign py-12 px-4">
+            <div class="flex flex-col lg:flex-row items-center lg:space-x-8">
+                <div class="w-full lg:w-1/2 mb-8 lg:mb-0">
+                    <div class="feature-benefit__img">
+                        <div class="media media--video">
+                            <img class="lazyload media__cover w-full max-w-lg mx-auto" src="assets/img/pik.png"
+                                alt="Keuntungan e-signature: akses dari perangkat apapun" width="585"
+                                height="522">
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/2">
+                    <div class="content text-center lg:text-left">
+                        <h2 class="feature-benefit__title text-2xl md:text-3xl font-bold text-white mb-6">
+                            Cara membuat e-Signature di AST
+                        </h2>
+                        <div class="feature-benefit__desc text-stone-100 text-lg leading-relaxed">
+                            <p class="mb-4">Cara membuat e-Signature menggunakan AST Sign sangat mudah. Anda dapat
+                                melakukannya dengan cara berikut:</p>
+                            <ul class="list-disc list-inside">
+                                <li class="mb-2">Gambar tanda tangan Anda di tempat yang sudah disediakan, lalu klik
+                                    Simpan</li>
+                                <li class="mb-2">Isi pop up form yang muncul, lalu klik Submit</li>
+                                <li class="mb-2">Tanda tangan Anda akan otomatis tersimpan di perangkat</li>
+                            </ul>
+                        </div>
+                        <div
+                            class="action mt-6 flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-start">
+                            <a id="14295E_section_4_3_3"
+                                class="btn bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold shadow-md hover:bg-green-600 mb-4 lg:mb-0 lg:mr-4"
+                                href="#" target="_blank" rel="noreferrer">WhatsApp sekarang</a>
+                            <a id="14295E_section_4_4_4"
+                                class="btn border border-blue-700 text-blue-700 py-3 px-6 rounded-lg font-semibold hover:bg-blue-100"
+                                href="{{ route('auth.register') }}" target="_self">Coba gratis</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="w-full py-10 bg-white lg:px-10 lg:py-20">
+            <div class="mb-10">
+                <p class="text-5xl text-center text-adobe-medium text-xignature">Bagaimana <span
+                        class="px-1 mr-2 text-xignature_yellow">AST</span>Membantu Anda ?
+                </p>
+            </div>
+            <div class="grid w-full grid-cols-1 md:grid-cols-2 mt-5 lg:gap-x-5 gap-y-5 lg:grid-cols-4">
+                <div
+                    class="relative mx-auto text-center border border-gray-300 shadow-md rounded-2xl group lg:w-auto md:w-2/3">
+                    <div class="absolute flex flex-row items-center space-x-3 top-5 left-5">
+                        <h1
+                            class="flex items-center justify-center w-6 h-6 text-sm rounded-full ring-2 ring-xignature">
+                            1</h1>
+                        <h1
+                            class="xl:text-lg lg:text-base md:text-sm text-base font-bold text-left transition-all duration-500 ease-in-out text-xignature group-hover:text-xignature">
+                            Buat Akun AST
+                        </h1>
+                    </div>
+                    <div class="mt-16 text-left shadow-gray-600">
+                        <div class="w-full h-1/2">
+                            <p class="mx-5 mt-4 text-sm text-left text-slate-500 lg:text-sm min-h-[130px]">Anda
+                                dapat melakukan pendaftaran melalui aplikasi web maupun aplikasi mobile AST
+                                (Android / IOS).</p>
+                        </div>
+                        <div class="flex justify-center w-full pl-3 mb-3"><img
+                                src="/assets/img/Step by Step (Variants)/step 01/step by step 16(step 01).svg"
+                                alt="content" class="w-1/2"></div>
+                    </div>
+                </div>
+                <div
+                    class="relative mx-auto text-center border border-gray-300 shadow-md rounded-2xl group lg:w-auto md:w-2/3">
+                    <div class="absolute flex flex-row items-center space-x-3 top-5 left-5">
+                        <h1
+                            class="flex items-center justify-center w-6 h-6 text-sm rounded-full ring-2 ring-xignature">
+                            2</h1>
+                        <h1
+                            class="xl:text-lg lg:text-base md:text-sm text-base font-bold text-left transition-all duration-500 ease-in-out text-xignature group-hover:text-xignature">
+                            Autentikasi Diri
+                        </h1>
+                    </div>
+                    <div class="mt-16 text-left shadow-gray-600">
+                        <div class="w-full h-1/2">
+                            <p class="mx-5 mt-4 text-sm text-left text-slate-500 lg:text-sm min-h-[130px]">
+                                Melakukan prosedur E-KYC dengan verifikasi e-KTP dengan data DUKCAPIL secara digital.
+                            </p>
+                        </div>
+                        <div class="flex justify-center w-full pl-3 mb-3"><img
+                                src="/assets/img/Step by Step (Variants)/step 02/step by step 16 (step 02).svg"
+                                alt="content" class="w-1/2"></div>
+                    </div>
+                </div>
+                <div
+                    class="relative mx-auto text-center border border-gray-300 shadow-md rounded-2xl group lg:w-auto md:w-2/3">
+                    <div class="absolute flex flex-row items-center space-x-3 top-5 left-5">
+                        <h1
+                            class="flex items-center justify-center w-6 h-6 text-sm rounded-full ring-2 ring-xignature">
+                            3</h1>
+                        <h1
+                            class="xl:text-lg lg:text-base md:text-sm text-base font-bold text-left transition-all duration-500 ease-in-out text-xignature group-hover:text-xignature">
+                            Konfirmasi &amp; Aktivasi Akun
+                        </h1>
+                    </div>
+                    <div class="mt-16 text-left shadow-gray-600">
+                        <div class="w-full h-1/2">
+                            <p class="mx-5 mt-4 text-sm text-left text-slate-500 lg:text-sm min-h-[130px]">
+                                Anda akan mendapatkan email konfirmasi untuk melakukan aktivasi dan penerbitan
+                                Sertifikat Elektronik.
+                            </p>
+                        </div>
+                        <div class="flex justify-center w-full pl-3 mb-3">
+                            <img src="/assets/img/Step by Step (Variants)/step 03/step by step 16 (step 03).svg"
+                                alt="content" class="w-1/2">
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="relative mx-auto text-center border border-gray-300 shadow-md rounded-2xl group lg:w-auto md:w-2/3">
+                    <div class="absolute flex flex-row items-center space-x-3 top-5 left-5">
+                        <h1
+                            class="flex items-center justify-center w-6 h-6 text-sm rounded-full ring-2 ring-xignature">
+                            4</h1>
+                        <h1
+                            class="xl:text-lg lg:text-base md:text-sm text-base font-bold text-left transition-all duration-500 ease-in-out text-xignature group-hover:text-xignature">
+                            Mulai Tandatangan
+                        </h1>
+                    </div>
+                    <div class="mt-16 text-left shadow-gray-600">
+                        <div class="w-full h-1/2">
+                            <p class="mx-5 mt-4 text-sm text-left text-slate-500 lg:text-sm min-h-[130px]">Buat
+                                tanda tangan elektronik di AST sekarang juga.</p>
+                        </div>
+                        <div class="flex justify-center w-full pl-3 mb-3"><img
+                                src="/assets/img/Step by Step (Variants)/step 04/step by step 16 (step 04).svg"
+                                alt="content" class="w-1/2"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class=" bg-white dark:bg-gray-900 atom-container py-10 bg-white" data-v-ae5afbaa="">
+            <div
+                class="section-container-hero flex flex-col md:flex-row items-center justify-between max-w-screen-xl mx-auto px-4">
+                <img src="assets/img/file1.png" alt="Feature Personal Register Image"
+                    class="w-64 md:w-1/2 lg:w-1/3 mb-6 md:mb-0" data-v-ae5afbaa="">
+                <div class="section-container-hero-content text-center md:text-left">
+                    <h2 class="text-2xl font-bold text-white mb-4" data-v-ae5afbaa="">
+                        Dapatkan solusi digital tanpa batas! Upgrade ke Personal Plan.
+                    </h2>
+                    <div class="section-container-hero-content-button flex flex-col md:flex-row justify-center md:justify-start space-y-2 md:space-y-0 md:space-x-4"
+                        data-v-ae5afbaa="">
+                        <a href="{{ route('auth.register') }}" target="_blank" class="w-full md:w-auto"
+                            data-v-ae5afbaa="">
+                            <div class="atom-button">
+                                <button
+                                    class="button is-x-large is-primary bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg px-6 py-3 transition duration-200">
+                                    Daftar Gratis
+                                </button>
+                            </div>
+                        </a>
+                        <a href="{{ route('auth.login') }}" target="_blank" class="w-full md:w-auto"
+                            data-v-ae5afbaa="">
+                            <div class="atom-button">
+                                <button
+                                    class="button is-x-large is-tertiary bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-lg px-6 py-3 transition duration-200">
+                                    Masuk
+                                </button>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="p-6 bg-white sm:p-8 dark:bg-gray-800">
+        <div class="max-w-screen-xl mx-auto">
+            <div class="md:flex md:justify-between">
+                <div class="mb-6 md:mb-0">
+                    <a href="" class="flex items-center">
+                        <img src="assets/img/logo/favicon.png" class="h-8 mr-3"
+                            alt="Authentic Signature Technology Logo" />
+                        <span
+                            class="self-center text-2xl font-semibold leading-tight truncate dark:text-white">Authentic
+                            Guards Technology</span>
+                    </a>
+                    <div class="mt-4">
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Jl. Tamblong No.46, Kb. Pisang</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Kec. Sumur Bandung, Kota Bandung</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Jawa Barat 40112</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+                    <div>
+                        <h2 class="mb-4 text-sm font-semibold text-gray-900  dark:text-white">AST
+                            Features</h2>
+                        <ul class="text-gray-600 dark:text-gray-400">
+                            <li class="mb-2"><a href="{{ route('guest.fitur.signe') }}" class="">Electronic
+                                    Certificate</a>
+                            </li>
+                            <li class="mb-2"><a href="{{ route('guest.signv.ecs') }}" class="">Electronic
+                                    Signature</a></li>
+                    </div>
+                    <div>
+                        <h2 class="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-white">Support</h2>
+                        <ul class="text-gray-600 dark:text-gray-400">
+                            <li class="mb-2"><a href="{{ route('guest.support') }}" class="hover:underline">Help
+                                    Center</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2 class="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-white">Tentang
+                            Perusahaan
+                        </h2>
+                        <ul class="text-gray-600 dark:text-gray-400">
+                            <li class="mb-2"><a href="{{ route('guest.about') }}" class="hover:underline">About
+                                    Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+            <div class="sm:flex sm:items-center sm:justify-between">
+                <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a
+                        href="https://authentic-signature.com" class="hover:underline">Authentic Guards
+                        Technology™</a>. All Rights Reserved.</span>
+                <div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm4.989-.327a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M16.048 0c3.315 0 4.736.685 5.84 1.272a8.89 8.89 0 012.708 2.69A9.465 9.465 0 0124 6.707v10.59a9.465 9.465 0 01-.405 2.745 8.89 8.89 0 01-2.707 2.69c-1.105.588-2.525 1.273-5.841 1.273H7.952c-3.316 0-4.736-.685-5.84-1.272a8.89 8.89 0 01-2.708-2.69A9.465 9.465 0 010 17.297V6.707a9.465 9.465 0 01.405-2.745A8.89 8.89 0 013.12 1.273C4.225.685 5.644 0 7.952 0h8.096zm-3.175 7.71H11.09V5.753c0-.527.014-.923.04-1.188.029-.33.09-.619.185-.869a1.917 1.917 0 01.438-.692 1.67 1.67 0 01.652-.406 2.76 2.76 0 01.987-.162h1.469V5.25H13.37c-.344 0-.584.108-.719.323-.135.215-.203.586-.203 1.114v1.024z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
