@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Crypt;
+use App\Http\Controllers\OrderController;
 
 use App\Library\Helper as LibHelper;
 use App\Models\Files\FileDisk;
@@ -286,6 +287,27 @@ Route::get('/symlink/link', function() {
 Route::get('create/token', function() {
     return response()->json(csrf_token());
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/products', [OrderController::class, 'products'])->name('products.list');
+    
+    Route::post('/cart/add/{product}', [OrderController::class, 'addToCart'])->name('cart.add');
+    Route::get('/cart', [OrderController::class, 'cart'])->name('cart.view');
+    
+    Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+    
+    // Admin routes (middleware admin)
+    Route::middleware('admin')->group(function() {
+        Route::get('/admin/orders', [OrderController::class, 'orders'])->name('admin.orders');
+    });
+});
+Route::middleware('auth')->group(function() {
+    Route::get('/products', [OrderController::class, 'products'])->name('products.list');
+    Route::post('/cart/add/{product}', [OrderController::class, 'addToCart'])->name('cart.add');
+    Route::get('/cart', [OrderController::class, 'cart'])->name('cart.view');
+    Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+});
+
 
 // Route::post('/signature/save-signature', [App\Livewire\Dashboard\Settings\Signatures\Signatures::class, 'storeDraw'])->name('signature.store.draw');
 // Route::post('/signature/upload-signature', [App\Livewire\Dashboard\Settings\Signatures\Signatures::class, 'storeUpload'])->name('signature.store.upload');

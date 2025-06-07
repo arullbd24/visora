@@ -76,7 +76,7 @@
                                 </div>
                                 <div class="ctr-btnConfirSignIn mt-8 px-2">
                                     <div class="cBtnConfirSignIn">
-                                        <button type="submit" class="block w-full py-2 bg-[#1C64F2] hover:bg-[#A4CAFE] text-white rounded-xl">
+                                        <button type="submit" class="block w-full py-2 bg-[#1C64F2] hover:bg-[#A4CAFE   ] text-white rounded-xl">
                                             <div class="txBtn">
                                                 <p>Continue</p>
                                             </div>

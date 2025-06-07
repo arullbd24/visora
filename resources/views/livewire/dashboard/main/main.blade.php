@@ -427,6 +427,7 @@
         window.onload = function() {
             document.getElementById('serviceTypeModal').style.display = 'flex';
         };
+        
     </script>
 </div>
 </section>
