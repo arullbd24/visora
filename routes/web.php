@@ -10,12 +10,14 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AdminController;
 
 use App\Library\Helper as LibHelper;
 use App\Models\Files\FileDisk;
 
 use Database\Factories\UserFactory;
 use Carbon\Carbon;
+use GuzzleHttp\Psr7\Uri;
 
 // use App\Livewire\Dashboard\Main as DashboardMain;
 
@@ -162,7 +164,6 @@ Route::middleware(['auth', 'web', 'log.user'])->group(function() {
         Route::get('others/activity', App\Livewire\Dashboard\Account\Others\Activity\Main::class)->name('others\activity');
         Route::get('others/shared-data', App\Livewire\Dashboard\Account\Others\SharedData::class)->name('others\shared-data');
     });
-    
     Route::prefix('upload-chunk')->name('upchunk.')->group(function() {
         // Route::post('/document', [App\Livewire\Dashboard\Documents\Upload\Document::class, 'uploadChunkFile'])->name('document');
         Route::post('/document', [App\Livewire\Dashboard\ContextMenu\Detail\Documents\UploadDocument::class, 'uploadChunkFile'])->name('document');
@@ -175,6 +176,7 @@ Route::middleware(['auth', 'web', 'log.user'])->group(function() {
 
 Route::get('d/files/{token}/view', [App\Http\Controllers\ViewFile_Controller::class, 'viewFile'])->name('view_file_token');
 Route::post('d/files/{token}/view/post', [App\Http\Controllers\ViewFile_Controller::class, 'viewFilePost'])->name('view_file_token_token');
+Route::get('/admin', [AdminController::class, 'index']);
 
 // Route::get('d/files/{key}/view', function($key) {
 //     $key_file = request('key');
@@ -307,6 +309,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/cart', [OrderController::class, 'cart'])->name('cart.view');
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
 });
+
 
 
 // Route::post('/signature/save-signature', [App\Livewire\Dashboard\Settings\Signatures\Signatures::class, 'storeDraw'])->name('signature.store.draw');
