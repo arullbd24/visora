@@ -111,7 +111,7 @@
                                     </ag-icon>
                                 </div>
                                 <div class="txLblAction">
-                                    <p>Logout</p>
+                                    <a href class="{{ route('guest.main') }}">Logout</a>
                                 </div>
                             </div>
                         </a>

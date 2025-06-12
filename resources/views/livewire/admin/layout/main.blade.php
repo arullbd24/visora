@@ -17,7 +17,6 @@
             <main class="flex-1 overflow-y-auto p-4 space-y-6 w-full">
                 <div class="max-w-full mx-auto px-2 sm:px-4 lg:px-6">
                     <h1 class="text-2xl font-bold text-gray-800 mb-4">Selamat datang kembali, Sahrul!</h1>
-
                     <!-- Statistik Cards -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                         <!-- Column 1 -->
@@ -31,7 +30,6 @@
                                 <div class="text-2xl font-semibold text-emerald-800">726</div>
                             </div>
                         </div>
-
                         <!-- Column 2 -->
                         <div class="space-y-4">
                             <div class="bg-cyan-100 p-4 rounded-xl shadow-sm">
@@ -43,7 +41,6 @@
                                 <div class="text-2xl font-semibold text-rose-800">441</div>
                             </div>
                         </div>
-
                         <!-- Column 3 -->
                         <div class="space-y-4">
                             <div class="bg-indigo-100 p-4 rounded-xl shadow-sm">
@@ -56,7 +53,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Bar Chart Section -->
                     <div class="bg-yellow-50 p-4 rounded-xl shadow-sm mb-6">
                         <div class="flex justify-between items-center mb-3">

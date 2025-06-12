@@ -22,7 +22,7 @@
                 </button> --}}
                 <a 
                     href="{{ route('Email_Confirm') }}" 
-                    class="w-full px-4 py-2 text-white bg-yellow-400 rounded-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition duration-300 block text-center"
+                    class="w-full px-4 py-2 text-white bg-[#1C64F2] rounded-md hover:bg-[#1C64F2] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1C64F2] transition duration-300 block text-center"
                     role="button">
                     Send OTP
                 </a>

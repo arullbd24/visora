@@ -14,7 +14,7 @@
 
             <!-- Logo + App Name -->
             <a href="{{ route('dashboard.main') }}" class="block flex items-center gap-2" wire:navigate>
-                <ag-image class="ctr-logoAST">
+                <ag-image class="ctr-logoVisora">
                     <ag-image-content class="cLogoAst size-10 md:size-14 lg:size-16 xl:size-20">
                         <img src="{{ asset('assets/img/visora..png') }}" alt="Logo" class="size-full object-cover object-center">
                     </ag-image-content>

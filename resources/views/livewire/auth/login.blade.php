@@ -5,19 +5,6 @@
             <div class="ctr-authLogin">
                 <div class="cAuthLogin flex items-center justify-center">
                     <div class="ctr-formFieldlogin">
-                        {{-- <div class="">
-                            @php
-                                $database_path = database_path('migrations');
-                                $database_all_path = \Illuminate\Support\Facades\File::allFiles($database_path);
-                                dd(
-                                    $database_path,
-                                    $database_all_path,
-                                    $database_all_path[14],
-                                    $database_all_path[14]->getRelativePathName(),
-                                    $database_all_path[14]->getRealPath(),
-                                );
-                            @endphp
-                        </div> --}}
                         <form wire:submit.prevent='login' class="cformFieldlogin rounded-md flex items-center justify-center w-full p-5 bg-gray-900">
                             @csrf
                             <div class="Form-contenMain">
