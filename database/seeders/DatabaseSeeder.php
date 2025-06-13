@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\ServiceTag;
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use Database\Seeders\UserPreferenceSeeder; 
+use Database\Seeders\UserPreferenceSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,7 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PaketJasaSeeder::class,
             ServiceSeeder::class,
-            UserPreferenceSeeder::class,
+            UserPreferencesSeeder::class,
+            ServiceTagsSeeder::class,
         ]);
     }
 }

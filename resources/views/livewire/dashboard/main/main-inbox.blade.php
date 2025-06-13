@@ -1,4 +1,4 @@
-<div class="cMainSct-inboxComingMainDashboard">
+{{-- <div class="cMainSct-inboxComingMainDashboard">
     <div class="lst-inboxComingMainDashboard">
         @foreach ($listInboxComing as $inboxComing)
             <div class="ctr-itmInboxComing px-4 py-2 bg-gray-200 border-b border-b-white">
@@ -29,4 +29,4 @@
             </div>
         @endforeach
     </div>
-</div>
+</div> --}}

@@ -1,4 +1,4 @@
-<div class="ctr-headInboxNavContent">
+{{-- <div class="ctr-headInboxNavContent">
     <div class="cHeadInboxNavContent">
         @php
             $lstHeadNavInbox = [
@@ -56,11 +56,11 @@
                             {{-- @if (Route::is($itmNavInbox->activeRoute))
                                 <div class="stickActive w-1 h-3/4 rounded-full bg-[#FFD700]/60 absolute left-0 top-1/2 -translate-y-1/2 transition-all"></div>
                             @endif --}}
-                            <div class="stickActive w-3/4 h-1 rounded-full bg-yellow-600 absolute left-1/2 top-full -translate-y-full -translate-x-1/2 {{ Route::is($itmNavInbox->activeRoute) ? '' : 'hidden' }}"></div>
+                            {{-- <div class="stickActive w-3/4 h-1 rounded-full bg-yellow-600 absolute left-1/2 top-full -translate-y-full -translate-x-1/2 {{ Route::is($itmNavInbox->activeRoute) ? '' : 'hidden' }}"></div>
                         </a>
                     </div>
                 @endforeach
             </div>
         </div>
     </div>
-</div>
+</div>  --}}

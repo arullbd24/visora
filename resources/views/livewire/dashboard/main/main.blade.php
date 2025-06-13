@@ -1,41 +1,73 @@
 <section>
-<div>
-    <header class="ctr-headerMainContent">
-        <div class="cHeaderMainContent">
-            <div class="txHeaderMainC">
-                <div class="txHead text-xl font-semibold">
-                    <h1>Welcome {{ auth()->user()->userPersonal->fullname }}</h1>
+    <div>
+        <header class="ctr-headerMainContent">
+            <div class="cHeaderMainContent">
+                <div class="txHeaderMainC">
+                    <div class="txHead text-xl font-semibold">
+                        <h1>Welcome {{ auth()->user()->userPersonal->fullname }}</h1>
+                    </div>
+                </div>
+                <div class="txDescHead mt-4">
+                    <div class="txMainDesc text-sm font-light text-gray-400">
+                        <p>Hi {{ auth()->user()->userPersonal->fullname }}! Discover your progress and important updates
+                            in your dashboard.</p>
+                    </div>
                 </div>
             </div>
-            <div class="txDescHead mt-4">
-                <div class="txMainDesc text-sm font-light text-gray-400">
-                    <p>Hi {{ auth()->user()->userPersonal->fullname }}! Discover your progress and important updates in your dashboard.</p>
+        </header>
+        <div class="container mx-auto px-4 py-8 min-h-screen">
+            <!-- Service Recommendations -->
+            <div id="serviceRecommendations">
+                <div class="flex items-center mb-6">
+                    <h2 id="selectedServiceTypeTitle" class="text-2xl font-bold text-gray-800">Rekomendasi Untuk Anda
+                    </h2>
+                </div>
+
+                <div class="mb-6">
+                    <div class="relative">
+                        <input type="text" placeholder="Cari berdasarkan lokasi/kecamatan..."
+                            class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-[#1C64F2]">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                </div>
+                <table width="100%" border="0" cellpadding="5" cellspacing="10">
+                    <tr>
+                        <!-- Kolom 1 -->
+                        <td width="25%" valign="top">
+                            <img src="https://via.placeholder.com/250/ff9999" width="100%"><br>
+                            <img src="https://via.placeholder.com/250/99ff99" width="100%"><br>
+                            <img src="https://via.placeholder.com/250/9999ff" width="100%">
+                        </td>
+
+                        <!-- Kolom 2 -->
+                        <td width="25%" valign="top">
+                            <img src="https://via.placeholder.com/250/ffff99" width="100%"><br>
+                            <img src="https://via.placeholder.com/250/ff99ff" width="100%"><br>
+                            <img src="https://via.placeholder.com/250/99ffff" width="100%">
+                        </td>
+
+                        <!-- Kolom 3 -->
+                        <td width="25%" valign="top">
+                            <img src="https://via.placeholder.com/250/cccccc" width="100%"><br>
+                            <img src="https://via.placeholder.com/250/ffcccc" width="100%"><br>
+                            <img src="https://via.placeholder.com/250/ccffcc" width="100%">
+                        </td>
+
+                        <!-- Kolom 4 -->
+                        <td width="25%" valign="top">
+                            <img src="https://via.placeholder.com/250/ccccff" width="100%"><br>
+                            <img src="https://via.placeholder.com/250/ffccff" width="100%"><br>
+                            <img src="https://via.placeholder.com/250/ccffff" width="100%">
+                        </td>
+                    </tr>
+                </table>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="recommendationsContainer">
+                    <!-- Recommendations will be dynamically inserted here -->
                 </div>
             </div>
         </div>
-    </header>
-     <div class="container mx-auto px-4 py-8 min-h-screen">
-        <!-- Service Recommendations -->
-        <div id="serviceRecommendations">
-            <div class="flex items-center mb-6">
-                <h2 id="selectedServiceTypeTitle" class="text-2xl font-bold text-gray-800">Rekomendasi Untuk Anda</h2>
-            </div>
-
-            <div class="mb-6">
-                <div class="relative">
-                    <input type="text" placeholder="Cari berdasarkan lokasi/kecamatan..."
-                        class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-[#1C64F2]">
-                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="recommendationsContainer">
-                <!-- Recommendations will be dynamically inserted here -->
-            </div>
-        </div>
-    </div>
-    <!-- First Modal - Service Type Selection -->
-    <div id="serviceTypeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <!-- First Modal - Service Type Selection -->
+        {{-- <div id="serviceTypeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white rounded-xl w-full max-w-md mx-4">
             <div class="p-6">
                 <h3 class="text-xl font-bold text-gray-800 mb-4">Apa yang Anda butuhkan hari ini?</h3>
@@ -60,8 +92,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div id="categoryModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    </div> --}}
+        {{-- <div id="categoryModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-xl w-full max-w-md mx-4">
             <div class="p-6">
                 <h3 class="text-xl font-bold text-gray-800 mb-4">Pilih Kategori Khusus</h3>
@@ -78,8 +110,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <script>
+    </div> --}}
+        {{-- <script>
         // Service categories mapping
         const serviceCategories = {
             "Fotografi": [
@@ -428,6 +460,6 @@
             document.getElementById('serviceTypeModal').style.display = 'flex';
         };
         
-    </script>
-</div>
+    </script> --}}
+    </div>
 </section>
