@@ -9,59 +9,96 @@ use App\Models\Service;
 
 class RecommendationController extends Controller
 {
-    public function recommendForUser($userId)
+    public function recommendForUser(Request $request, $userId)
     {
-        // Ambil preferensi user dari rating yang sudah dia berikan terhadap layanan
+        // Ambil preferensi pengguna
+        $kategoriFilter = $request->query('kategori');
         $preferences = DB::table('user_preferences')
             ->join('service_tags', 'user_preferences.service_id', '=', 'service_tags.service_id')
+            ->join('services', 'services.id', '=', 'service_tags.service_id')
+            ->select(
+                'services.id',
+                'services.name as nama',
+                'services.description as deskripsi',
+                'service_tags.tag',
+                'user_preferences.rating'
+            )
             ->where('user_preferences.user_id', $userId)
-            ->select('service_tags.tag', DB::raw('user_preferences.rating * service_tags.weight as score'))
             ->get();
 
-        // Ubah preferensi user menjadi vektor
-        $userVector = [];
-        foreach ($preferences as $pref) {
-            if (isset($userVector[$pref->tag])) {
-                $userVector[$pref->tag] += $pref->score;
-            } else {
-                $userVector[$pref->tag] = $pref->score;
+        foreach ($preferences as $preference) {
+            if (!isset($userProfile[$preference->tag])) {
+                $userProfile[$preference->tag] = 0;
             }
+            $userProfile[$preference->tag] += $preference->rating;
         }
 
-        // Ambil semua layanan dan tag-tag-nya
-        $serviceTags = DB::table('service_tags')
-            ->select('service_id', 'tag', 'weight')
-            ->get()
-            ->groupBy('service_id');
+        // Ambil semua jasa dan tag
+        $allTagsQuery = DB::table('service_tags')
+            ->join('services', 'services.id', '=', 'service_tags.service_id')
+            ->select('services.id', 'services.name as nama', 'services.description as deskripsi', 'service_tags.tag');
 
-        // Ubah menjadi vektor layanan
-        $serviceVectors = [];
-        foreach ($serviceTags as $serviceId => $tags) {
-            $vector = [];
-            foreach ($tags as $tag) {
-                $vector[$tag->tag] = $tag->weight;
-            }
-            $serviceVectors[$serviceId] = $vector;
+        if ($kategoriFilter) {
+            $allTagsQuery->where('services.categories', 'like', '%' . $kategoriFilter . '%');
         }
 
-        // Hitung rekomendasi dengan cosine similarity
-        $cosine = new CosineSimilarityService();
-        $recommendations = $cosine->getRecommendations($userVector, $serviceVectors);
+        $allTags = $allTagsQuery->get();
 
-        // Tambahkan nama service agar bisa ditampilkan
-        $recommendations = collect($recommendations)->map(function ($item) {
-            $service = Service::find($item['service_id']);
-            return [
-                'service_id' => $item['service_id'],
-                'name' => $service ? $service->name : 'Unknown Service',
-                'estimated_rating' => $item['estimated_rating'],
+
+        // Buat profil setiap jasa
+        $serviceProfiles = [];
+        foreach ($allTags as $tag) {
+            $serviceId = $tag->id;
+            if (!isset($serviceProfiles[$serviceId])) {
+                $serviceProfiles[$serviceId] = [
+                    'nama' => $tag->nama,
+                    'deskripsi' => $tag->deskripsi,
+                    'tags' => []
+                ];
+            }
+            $serviceProfiles[$serviceId]['tags'][$tag->tag] = 1;
+        }
+
+        // Hitung cosine similarity
+        $results = [];
+        foreach ($serviceProfiles as $serviceId => $service) {
+            $dotProduct = 0;
+            $userMagnitude = 0;
+            $serviceMagnitude = 0;
+
+            foreach ($userProfile as $tag => $rating) {
+                $userMagnitude += $rating ** 2;
+                if (isset($service['tags'][$tag])) {
+                    $dotProduct += $rating * 1;
+                }
+            }
+
+            foreach ($service['tags'] as $val) {
+                $serviceMagnitude += $val ** 2;
+            }
+
+            $cosine = 0;
+            if ($userMagnitude != 0 && $serviceMagnitude != 0) {
+                $cosine = $dotProduct / (sqrt($userMagnitude) * sqrt($serviceMagnitude));
+            }
+
+            $results[] = [
+                'nama' => $service['nama'],
+                'deskripsi' => $service['deskripsi'],
+                'score' => round($cosine, 3)
             ];
-        });
+        }
 
-        // Tampilkan ke view
+        // Filter hasil dengan skor > 0, urutkan, ambil top 5
+        $filtered = collect($results)
+            ->filter(fn($item) => $item['score'] > 0)
+            ->sortByDesc('score')
+            ->take(5)
+            ->values();
+
         return view('recommendation', [
             'userId' => $userId,
-            'recommendations' => $recommendations
+            'recommendations' => $filtered
         ]);
     }
 }
