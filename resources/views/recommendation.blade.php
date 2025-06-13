@@ -1,19 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+    <meta charset="UTF-8">
     <title>Rekomendasi Layanan</title>
 </head>
 <body>
-    <h1>Rekomendasi untuk User ID: {{ $userId }}</h1>
+    <h2>Rekomendasi Layanan untuk User ID: {{ $userId }}</h2>
 
-    @if (count($recommendations) > 0)
+    @if($recommendations->isEmpty())
+        <p>Tidak ada rekomendasi layanan yang tersedia untuk saat ini.</p>
+    @else
         <ul>
-            @foreach ($recommendations as $rec)
-                <li>{{ $rec['name'] }} (Rating Estimasi: {{ number_format($rec['estimated_rating'], 2) }})</li>
+            @foreach($recommendations as $rec)
+                <li>
+                    <p>Nama Layanan: {{ $rec['name'] }}</p>
+                    <p>ID Layanan: {{ $rec['service_id'] }}</p>
+                    <p>Rating Estimasi: {{ number_format($rec['estimated_rating'], 2) }}</p>
+                    <hr>
+                </li>
             @endforeach
         </ul>
-    @else
-        <p>Tidak ada rekomendasi ditemukan.</p>
     @endif
 </body>
 </html>
