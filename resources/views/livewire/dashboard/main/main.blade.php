@@ -18,9 +18,14 @@
         <div class="container mx-auto px-4 py-8 min-h-screen">
             <!-- Service Recommendations -->
             <div id="serviceRecommendations">
-                <div class="flex items-center mb-6">
+                <div class="flex items-center justify-between mb-6">
                     <h2 id="selectedServiceTypeTitle" class="text-2xl font-bold text-gray-800">Rekomendasi Untuk Anda
                     </h2>
+                    <a href="{{ route('recommendation') }}">
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                            Lihat Rekomendasi
+                        </button>
+                    </a>
                 </div>
 
                 <div class="mb-6">
@@ -30,37 +35,7 @@
                         <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
                     </div>
                 </div>
-                <table width="100%" border="0" cellpadding="5" cellspacing="10">
-                    <tr>
-                        <!-- Kolom 1 -->
-                        <td width="25%" valign="top">
-                            <img src="https://via.placeholder.com/250/ff9999" width="100%"><br>
-                            <img src="https://via.placeholder.com/250/99ff99" width="100%"><br>
-                            <img src="https://via.placeholder.com/250/9999ff" width="100%">
-                        </td>
 
-                        <!-- Kolom 2 -->
-                        <td width="25%" valign="top">
-                            <img src="https://via.placeholder.com/250/ffff99" width="100%"><br>
-                            <img src="https://via.placeholder.com/250/ff99ff" width="100%"><br>
-                            <img src="https://via.placeholder.com/250/99ffff" width="100%">
-                        </td>
-
-                        <!-- Kolom 3 -->
-                        <td width="25%" valign="top">
-                            <img src="https://via.placeholder.com/250/cccccc" width="100%"><br>
-                            <img src="https://via.placeholder.com/250/ffcccc" width="100%"><br>
-                            <img src="https://via.placeholder.com/250/ccffcc" width="100%">
-                        </td>
-
-                        <!-- Kolom 4 -->
-                        <td width="25%" valign="top">
-                            <img src="https://via.placeholder.com/250/ccccff" width="100%"><br>
-                            <img src="https://via.placeholder.com/250/ffccff" width="100%"><br>
-                            <img src="https://via.placeholder.com/250/ccffff" width="100%">
-                        </td>
-                    </tr>
-                </table>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="recommendationsContainer">
                     <!-- Recommendations will be dynamically inserted here -->
                 </div>

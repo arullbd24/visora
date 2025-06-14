@@ -4,39 +4,48 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Services\CosineSimilarityService;
-use App\Models\Service;
+use Illuminate\Support\Facades\Auth;
 
 class RecommendationController extends Controller
 {
+    public function recommendForAuthUser(Request $request)
+    {
+        if (!Auth::check()) {
+            abort(403, 'Unauthorized');
+        }
+
+        $userId = Auth::id();
+        return $this->recommendForUser($request, $userId);
+    }
+
     public function recommendForUser(Request $request, $userId)
     {
-        // Ambil preferensi pengguna
         $kategoriFilter = $request->query('kategori');
-        $preferences = DB::table('user_preferences')
+        $userProfile = [];
+
+        // Ambil semua rating user dan tag dari layanan yang dirating
+        $rawPreferences = DB::table('user_preferences')
             ->join('service_tags', 'user_preferences.service_id', '=', 'service_tags.service_id')
-            ->join('services', 'services.id', '=', 'service_tags.service_id')
+            ->where('user_preferences.user_id', $userId)
             ->select(
-                'services.id',
-                'services.name as nama',
-                'services.description as deskripsi',
                 'service_tags.tag',
+                'service_tags.weight',
                 'user_preferences.rating'
             )
-            ->where('user_preferences.user_id', $userId)
             ->get();
 
-        foreach ($preferences as $preference) {
+        foreach ($rawPreferences as $preference) {
             if (!isset($userProfile[$preference->tag])) {
                 $userProfile[$preference->tag] = 0;
             }
-            $userProfile[$preference->tag] += $preference->rating;
+            // Kalikan rating dengan bobot tag (weight)
+            $userProfile[$preference->tag] += $preference->rating * ($preference->weight ?? 1);
         }
 
-        // Ambil semua jasa dan tag
+        // Ambil semua layanan dan tag-nya
         $allTagsQuery = DB::table('service_tags')
             ->join('services', 'services.id', '=', 'service_tags.service_id')
-            ->select('services.id', 'services.name as nama', 'services.description as deskripsi', 'service_tags.tag');
+            ->select('services.id', 'services.name as nama', 'services.description as deskripsi', 'service_tags.tag', 'service_tags.weight');
 
         if ($kategoriFilter) {
             $allTagsQuery->where('services.categories', 'like', '%' . $kategoriFilter . '%');
@@ -44,8 +53,7 @@ class RecommendationController extends Controller
 
         $allTags = $allTagsQuery->get();
 
-
-        // Buat profil setiap jasa
+        // Susun profil setiap service
         $serviceProfiles = [];
         foreach ($allTags as $tag) {
             $serviceId = $tag->id;
@@ -56,7 +64,7 @@ class RecommendationController extends Controller
                     'tags' => []
                 ];
             }
-            $serviceProfiles[$serviceId]['tags'][$tag->tag] = 1;
+            $serviceProfiles[$serviceId]['tags'][$tag->tag] = $tag->weight ?? 1;
         }
 
         // Hitung cosine similarity
@@ -69,7 +77,7 @@ class RecommendationController extends Controller
             foreach ($userProfile as $tag => $rating) {
                 $userMagnitude += $rating ** 2;
                 if (isset($service['tags'][$tag])) {
-                    $dotProduct += $rating * 1;
+                    $dotProduct += $rating * $service['tags'][$tag];
                 }
             }
 
@@ -89,7 +97,7 @@ class RecommendationController extends Controller
             ];
         }
 
-        // Filter hasil dengan skor > 0, urutkan, ambil top 5
+        // Filter hasil dengan skor positif dan urutkan
         $filtered = collect($results)
             ->filter(fn($item) => $item['score'] > 0)
             ->sortByDesc('score')
@@ -97,8 +105,27 @@ class RecommendationController extends Controller
             ->values();
 
         return view('recommendation', [
-            'userId' => $userId,
             'recommendations' => $filtered
         ]);
+    }
+    public function showRatingForm()
+    {
+        $services = DB::table('services')->inRandomOrder()->take(6)->get();
+        return view('rate', ['services' => $services]);
+    }
+
+    public function saveRatings(Request $request)
+    {
+        $userId = Auth::id();
+        foreach ($request->input('ratings', []) as $serviceId => $rating) {
+            if ($rating !== null) {
+                DB::table('user_preferences')->updateOrInsert(
+                    ['user_id' => $userId, 'service_id' => $serviceId],
+                    ['rating' => $rating]
+                );
+            }
+        }
+
+        return redirect()->route('recommend.user')->with('success', 'Terima kasih! Rekomendasi disiapkan.');
     }
 }
