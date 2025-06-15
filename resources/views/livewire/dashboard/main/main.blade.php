@@ -21,13 +21,12 @@
                 <div class="flex items-center justify-between mb-6">
                     <h2 id="selectedServiceTypeTitle" class="text-2xl font-bold text-gray-800">Rekomendasi Untuk Anda
                     </h2>
-                    <a href="{{ route('recommendation') }}">
+                    <a href="{{ route('rate') }}">
                         <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
                             Lihat Rekomendasi
                         </button>
                     </a>
                 </div>
-
                 <div class="mb-6">
                     <div class="relative">
                         <input type="text" placeholder="Cari berdasarkan lokasi/kecamatan..."
@@ -35,14 +34,12 @@
                         <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
                     </div>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="recommendationsContainer">
-                    <!-- Recommendations will be dynamically inserted here -->
                 </div>
             </div>
         </div>
         <!-- First Modal - Service Type Selection -->
-        {{-- <div id="serviceTypeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div id="serviceTypeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white rounded-xl w-full max-w-md mx-4">
             <div class="p-6">
                 <h3 class="text-xl font-bold text-gray-800 mb-4">Apa yang Anda butuhkan hari ini?</h3>
@@ -67,8 +64,8 @@
                 </div>
             </div>
         </div>
-    </div> --}}
-        {{-- <div id="categoryModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    </div>
+        <div id="categoryModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-xl w-full max-w-md mx-4">
             <div class="p-6">
                 <h3 class="text-xl font-bold text-gray-800 mb-4">Pilih Kategori Khusus</h3>
@@ -85,8 +82,8 @@
                 </div>
             </div>
         </div>
-    </div> --}}
-        {{-- <script>
+    </div>
+        <script>
         // Service categories mapping
         const serviceCategories = {
             "Fotografi": [
@@ -435,6 +432,6 @@
             document.getElementById('serviceTypeModal').style.display = 'flex';
         };
         
-    </script> --}}
+    </script>
     </div>
 </section>
