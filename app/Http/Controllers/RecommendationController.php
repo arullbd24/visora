@@ -23,23 +23,14 @@ class RecommendationController extends Controller
         $kategoriFilter = $request->query('kategori');
         $userProfile = [];
 
-        // Ambil semua rating user dan tag dari layanan yang dirating
+        // Ambil semua rating user berdasarkan TAG
         $rawPreferences = DB::table('user_preferences')
-            ->join('service_tags', 'user_preferences.service_id', '=', 'service_tags.service_id')
-            ->where('user_preferences.user_id', $userId)
-            ->select(
-                'service_tags.tag',
-                'service_tags.weight',
-                'user_preferences.rating'
-            )
+            ->where('user_id', $userId)
+            ->select('tag', 'rating')
             ->get();
 
         foreach ($rawPreferences as $preference) {
-            if (!isset($userProfile[$preference->tag])) {
-                $userProfile[$preference->tag] = 0;
-            }
-            // Kalikan rating dengan bobot tag (weight)
-            $userProfile[$preference->tag] += $preference->rating * ($preference->weight ?? 1);
+            $userProfile[$preference->tag] = $preference->rating;
         }
 
         // Ambil semua layanan dan tag-nya
@@ -53,7 +44,7 @@ class RecommendationController extends Controller
 
         $allTags = $allTagsQuery->get();
 
-        // Susun profil setiap service
+        // Susun profil setiap layanan
         $serviceProfiles = [];
         foreach ($allTags as $tag) {
             $serviceId = $tag->id;
@@ -97,7 +88,7 @@ class RecommendationController extends Controller
             ];
         }
 
-        // Filter hasil dengan skor positif dan urutkan
+        // Filter dan urutkan
         $filtered = collect($results)
             ->filter(fn($item) => $item['score'] > 0)
             ->sortByDesc('score')
@@ -108,19 +99,21 @@ class RecommendationController extends Controller
             'recommendations' => $filtered
         ]);
     }
+
     public function showRatingForm()
     {
         $services = DB::table('services')->inRandomOrder()->take(6)->get();
-        return view('rate', ['services' => $services]);
+        return view('rate', ['services' => $services]); // <- ini penting!
     }
 
     public function saveRatings(Request $request)
     {
         $userId = Auth::id();
-        foreach ($request->input('ratings', []) as $serviceId => $rating) {
+
+        foreach ($request->input('ratings', []) as $tag => $rating) {
             if ($rating !== null) {
                 DB::table('user_preferences')->updateOrInsert(
-                    ['user_id' => $userId, 'service_id' => $serviceId],
+                    ['user_id' => $userId, 'tag' => $tag],
                     ['rating' => $rating]
                 );
             }

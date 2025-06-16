@@ -12,7 +12,6 @@ return new class extends Migration {
             $table->unsignedBigInteger('service_id');
             $table->string('tag');
             $table->float('weight')->default(1.0); // bobot pentingnya tag
-
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->timestamps();
         });

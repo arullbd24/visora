@@ -1,39 +1,29 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Beri Rating Layanan</title>
-    <link rel="icon" href="{{ asset('assets/img/visora..png') }}" type="image/x-icon">
-    <style>
-        body { font-family: Arial, sans-serif; margin: 2rem; }
-        h2 { margin-bottom: 1rem; }
-        .service-box { margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #ccc; border-radius: 8px; }
-        select { padding: 0.3rem; }
-        button { margin-top: 1rem; padding: 0.5rem 1rem; background: #007bff; color: #fff; border: none; border-radius: 4px; }
-    </style>
+    <title>Rate Gaya Layanan</title>
 </head>
 <body>
-    <h2>Beri Rating pada Layanan Berikut</h2>
+    <h2>Berikan Rating Anda</h2>
 
-    <form action="{{ route('save-ratings') }}" method="POST">
+    <form method="POST" action="{{ route('save.ratings') }}">
         @csrf
 
-        @foreach($services as $service)
-            <div class="service-box">
-                <strong>{{ $service->name }}</strong><br>
-                <small>{{ $service->description }}</small><br><br>
-                <label>Rating:
-                    <select name="ratings[{{ $service->id }}]" required>
-                        <option value="">Pilih</option>
-                        @for($i = 1; $i <= 5; $i++)
-                            <option value="{{ $i }}">{{ $i }}</option>
-                        @endfor
-                    </select>
-                </label>
+        @php
+            $tags = ['cinematic', 'formal', 'informal', 'profesional'];
+        @endphp
+        @foreach ($tags as $tag)
+            <div>
+                <label for="{{ $tag }}">{{ ucfirst($tag) }}</label>
+                <select name="ratings[{{ $tag }}]" id="{{ $tag }}">
+                    <option value="">Pilih rating</option>
+                    @for ($i = 1; $i <= 5; $i++)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
             </div>
         @endforeach
-
-        <button type="submit">Simpan Rating</button>
+        <button type="submit">Kirim</button>
     </form>
 </body>
 </html>
