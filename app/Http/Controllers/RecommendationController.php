@@ -10,6 +10,7 @@ class RecommendationController extends Controller
 {
     public function recommendForAuthUser(Request $request)
     {
+            $tujuan = session('tujuan_pemesanan');
         if (!Auth::check()) {
             abort(403, 'Unauthorized');
         }
@@ -29,8 +30,32 @@ class RecommendationController extends Controller
             ->select('tag', 'rating')
             ->get();
 
+        $totalBobot = 100;
+
+        // Bobot dominan: profesional
+        $bobotDistribusi = [
+            'profesional' => 40,
+            'cinematic' => 25,
+            'formal' => 20,
+            'informal' => 15,
+        ];
+
+        // Hitung total rating user (untuk scaling)
+        $ratingTotal = $rawPreferences->sum('rating');
+
+        // Validasi jika user belum memberikan rating
+        if ($ratingTotal == 0) {
+            return redirect()->route('rate.form')->with('warning', 'Silakan beri penilaian terlebih dahulu untuk mendapatkan rekomendasi.');
+        }
+
+        // Hitung user profile berdasarkan distribusi bobot
         foreach ($rawPreferences as $preference) {
-            $userProfile[$preference->tag] = $preference->rating;
+            $tag = $preference->tag;
+            $rating = $preference->rating;
+
+            if (isset($bobotDistribusi[$tag])) {
+                $userProfile[$tag] = ($rating / $ratingTotal) * $bobotDistribusi[$tag];
+            }
         }
 
         // Ambil semua layanan dan tag-nya
@@ -88,7 +113,7 @@ class RecommendationController extends Controller
             ];
         }
 
-        // Filter dan urutkan
+        // Filter dan urutkan hasil
         $filtered = collect($results)
             ->filter(fn($item) => $item['score'] > 0)
             ->sortByDesc('score')
@@ -102,14 +127,13 @@ class RecommendationController extends Controller
 
     public function showRatingForm()
     {
-        $services = DB::table('services')->inRandomOrder()->take(6)->get();
-        return view('rate', ['services' => $services]); // <- ini penting!
+        return view('rate');
     }
 
     public function saveRatings(Request $request)
     {
         $userId = Auth::id();
-
+        session(['tujuan_pemesanan' => $request->input('tujuan_pemesanan')]);
         foreach ($request->input('ratings', []) as $tag => $rating) {
             if ($rating !== null) {
                 DB::table('user_preferences')->updateOrInsert(

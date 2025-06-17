@@ -18,10 +18,10 @@
         <div class="nmeLogoApps {{ ((array_search('dashboard', $URLPath) || array_search('users', $URLPath)) ? 'hidden md:block' : 'hidden') }} text-white">
             <div class="txApps flex items-center">
                 <div class="txF font-semibold">
-                    <p>Authentic</p>
+                    <p>Visora</p>
                 </div>
                 <div class="txS">
-                    <p>Guards</p>
+                    <p>Dashboard</p>
                 </div>
             </div>
         </div>

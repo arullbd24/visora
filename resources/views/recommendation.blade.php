@@ -2,34 +2,23 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Rekomendasi Layanan untuk Anda</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Tailwind CDN (styling modern) -->
+    <title>Rekomendasi Layanan</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen py-10">
-    <div class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
-        <h2 class="text-2xl font-bold text-center mb-6">Rekomendasi Layanan untuk Anda</h2>
+<body class="bg-gradient-to-r from-slate-100 to-white min-h-screen py-10 px-4">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-center text-indigo-700 mb-10">Rekomendasi Layanan Untukmu</h1>
 
-        @if ($recommendations->isEmpty())
-    
-            <p class="text-center text-gray-600">Belum ada rekomendasi yang tersedia saat ini.</p>
-        @else
-            <ul class="space-y-6">
-                @foreach ($recommendations as $item)
-                    <li class="border p-4 rounded hover:shadow transition">
-                        <h3 class="text-xl font-semibold text-blue-700">{{ $item['nama'] }}</h3>
-                        <p class="text-gray-700 mt-1">{{ $item['deskripsi'] }}</p>
-                        <p class="text-sm text-gray-500 mt-2">Skor Kecocokan: <strong>{{ $item['score'] }}</strong></p>
-                    </li>
-                @endforeach
-            </ul>
-        @endif
-
-        <div class="mt-8 text-center">
-            <a href="{{ route('rate') }}" class="text-blue-600 hover:underline">
-                Ubah Preferensi
-            </a>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            @foreach($recommendations as $recommendation)
+                <div class="bg-white border border-gray-200 rounded-xl shadow hover:shadow-md transition p-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ $recommendation['nama'] }}</h2>
+                    <p class="text-gray-600 mb-4">{{ $recommendation['deskripsi'] }}</p>
+                    <div class="text-sm text-blue-600 font-medium">
+                        Skor Kecocokan: {{ $recommendation['score'] * 100 }}%
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 </body>

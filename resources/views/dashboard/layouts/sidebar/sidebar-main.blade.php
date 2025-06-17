@@ -51,13 +51,13 @@
                         'activeRoute' => 'dashboard.main',
                         'wireNavigate' => true,
                     ),
-                    (object) array(
-                        'titleNav' => 'inbox',
-                        'icon' => 'fas fa-inbox',
-                        'routeNav' => route('inbox.main'),
-                        'activeRoute' => 'inbox.main',
-                        'wireNavigate' => true,
-                    ),
+                    // (object) array(
+                    //     'titleNav' => 'inbox',
+                    //     'icon' => 'fas fa-inbox',
+                    //     'routeNav' => route('inbox.main'),
+                    //     'activeRoute' => 'inbox.main',
+                    //     'wireNavigate' => true,
+                    // ),
                     (object) array(
                         'titleNav' => 'signature',
                         'icon' => 'fas fa-signature',
