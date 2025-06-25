@@ -338,5 +338,6 @@ Route::post('/admin-login', function () {
 Route::get('/rate', [RecommendationController::class, 'showRatingForm'])->name('rate');
 Route::post('/rate', [RecommendationController::class, 'saveRatings'])->name('save.ratings');
 Route::get('/recommend', [RecommendationController::class, 'recommendForAuthUser'])->name('recommend.user');
+Route::get('/recommendation/history', [\App\Http\Controllers\RecommendationController::class, 'viewHistory'])->name('recommend.history');
 // Route::post('/signature/save-signature', [App\Livewire\Dashboard\Settings\Signatures\Signatures::class, 'storeDraw'])->name('signature.store.draw');
 // Route::post('/signature/upload-signature', [App\Livewire\Dashboard\Settings\Signatures\Signatures::class, 'storeUpload'])->name('signature.store.upload');
