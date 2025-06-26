@@ -9,13 +9,15 @@ use Database\Seeders\UserPreferenceSeeder;
 
 class DatabaseSeeder extends Seeder
 {
-    public function run(): void
-    {
-        $this->call([
-            PaketJasaSeeder::class,
-            ServiceSeeder::class,
-            UserPreferencesSeeder::class,
-            ServiceTagsSeeder::class,
-        ]);
-    }
+    public function run()
+{
+    $this->call([
+        PaketJasaSeeder::class,
+        ServiceSeeder::class,
+        UserPreferencesSeeder::class,
+        ServiceTagsSeeder::class,
+        AdminUserSeeder::class, 
+    ]);
+}
+
 }

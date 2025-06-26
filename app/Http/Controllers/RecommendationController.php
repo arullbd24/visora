@@ -141,17 +141,32 @@ class RecommendationController extends Controller
         return view('rate');
     }
 
-    public function viewHistory()
+    public function showHistory(Request $request)
     {
         $userId = Auth::id();
-        $history = DB::table('recommendation_history')
+        $query = DB::table('recommendation_history')
             ->where('user_id', $userId)
-            ->orderByDesc('created_at')
-            ->take(20)
-            ->get();
+            ->orderByDesc('created_at');
 
-        return view('recommendation_history', compact('history'));
+        if ($request->filled('tanggal')) {
+            $query->whereDate('created_at', $request->input('tanggal'));
+        }
+
+        $history = $query->get();
+
+        return view('history', compact('history'));
     }
+
+    public function deleteHistory()
+    {
+        $userId = Auth::id();
+
+        DB::table('recommendation_history')->where('user_id', $userId)->delete();
+
+        return redirect()->route('recommend.history')->with('success', 'Riwayat berhasil dihapus.');
+    }
+
+
 
 
     public function saveRatings(Request $request)

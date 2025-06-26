@@ -338,6 +338,11 @@ Route::post('/admin-login', function () {
 Route::get('/rate', [RecommendationController::class, 'showRatingForm'])->name('rate');
 Route::post('/rate', [RecommendationController::class, 'saveRatings'])->name('save.ratings');
 Route::get('/recommend', [RecommendationController::class, 'recommendForAuthUser'])->name('recommend.user');
-Route::get('/recommendation/history', [\App\Http\Controllers\RecommendationController::class, 'viewHistory'])->name('recommend.history');
+Route::get('/history', [RecommendationController::class, 'showHistory'])->name('recommend.history');
+Route::delete('/history/delete', [RecommendationController::class, 'deleteHistory'])->name('recommend.history.delete');
+Route::get('/order/form', [OrderController::class, 'showForm'])->name('order.form');
+Route::post('/order/submit', [OrderController::class, 'submit'])->name('order.submit');
+Route::get('/admin/orders', [OrderController::class, 'adminIndex'])->name('admin.orders');
+Route::post('/admin/orders/{id}/update-status', [OrderController::class, 'updateStatus'])->name('admin.orders.update');
 // Route::post('/signature/save-signature', [App\Livewire\Dashboard\Settings\Signatures\Signatures::class, 'storeDraw'])->name('signature.store.draw');
 // Route::post('/signature/upload-signature', [App\Livewire\Dashboard\Settings\Signatures\Signatures::class, 'storeUpload'])->name('signature.store.upload');

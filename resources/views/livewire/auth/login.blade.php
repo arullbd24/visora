@@ -111,6 +111,12 @@
         </div>
     </div>
 </div>
+<script>
+    Livewire.on('redirect', url => {
+        window.location.href = url;
+    });
+</script>
+
 
 @section('script-field')
     <script src="{{ asset('assets/auth/input.js') }}"></script>
