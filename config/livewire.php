@@ -64,40 +64,15 @@ return [
     */
 
     'temporary_file_upload' => [
-        'enabled' => true, // delete
-        'disk' => 'temp', // null        // Example: 'local', 's3'              | Default: 'default'
-        'rules' => ['file', 'max:102400'],       // Example: ['file', 'mimes:png,jpg']  | Default: ['required', 'file', 'max:12288'] (12MB)
-        // 'directory' => 'documents', //null   // Example: 'tmp'                      | Default: 'livewire-tmp'
-        'directory' => 'livewire-tmp', //livewire-tmp   // Example: 'tmp'                      | Default: 'livewire-tmp'
-        'middleware' => 'throttle:10,1',  // Example: 'throttle:5,1'            | Default: 'throttle:60,1'
+        'disk' => null,        // Example: 'local', 's3'              | Default: 'default'
+        'rules' => null,       // Example: ['file', 'mimes:png,jpg']  | Default: ['required', 'file', 'max:12288'] (12MB)
+        'directory' => null,   // Example: 'tmp'                      | Default: 'livewire-tmp'
+        'middleware' => null,  // Example: 'throttle:5,1'             | Default: 'throttle:60,1'
         'preview_mimes' => [   // Supported file types for temporary pre-signed file URLs...
-            'pdf', 'png', 'gif', 'bmp', 'svg', 'wav', 'mp4',
+            'png', 'gif', 'bmp', 'svg', 'wav', 'mp4',
             'mov', 'avi', 'wmv', 'mp3', 'm4a',
-            'jpg', 'jpeg', 'mpga', 'webp', 'wma', 'canvas',
+            'jpg', 'jpeg', 'mpga', 'webp', 'wma',
         ],
-        // 'preview_mimes' => [   // Supported file types for temporary pre-signed file URLs...
-        //     'image/jpeg',
-        //     'image/png',
-        //     'image/gif',
-        //     'application/pdf',
-        //     // 'pdf' => 'application/pdf',
-        //     // 'png' => 'image/png',
-        //     // 'gif' => 'image/gif',
-        //     // 'bmp' => 'image/bmp',
-        //     // 'svg' => 'image/svg+xml',
-        //     // 'wav' => 'audio/wav',
-        //     // 'mp4' => 'video/mp4',
-        //     // 'mov' => 'video/quicktime',
-        //     // 'avi' => 'video/x-msvideo',
-        //     // 'wmv' => 'video/x-ms-wmv',
-        //     // 'mp3' => 'audio/mpeg',
-        //     // 'm4a' => 'audio/x-m4a',
-        //     // 'jpg' => 'image/jpg',
-        //     // 'jpeg' => 'image/jpeg',
-        //     // 'mpga' => 'audio/mpeg',
-        //     // 'webp' => 'image/webp',
-        //     // 'wma' => 'audio/x-ms-wma',
-        // ],
         'max_upload_time' => 5, // Max duration (in minutes) before an upload is invalidated...
         'cleanup' => true, // Should cleanup temporary uploads older than 24 hrs...
     ],
@@ -182,6 +157,4 @@ return [
     */
 
     'pagination_theme' => 'tailwind',
-    
-    'file_upload_max_size' => 200,
 ];

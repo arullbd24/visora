@@ -13,6 +13,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AdminController;
 // use App\Http\Livewire\Auth\Login;
 use App\Http\Controllers\RecommendationController;
+use App\Http\Controllers\Admin\ServiceController;
 
 use App\Library\Helper as LibHelper;
 use App\Models\Files\FileDisk;
@@ -344,5 +345,23 @@ Route::get('/order/form', [OrderController::class, 'showForm'])->name('order.for
 Route::post('/order/submit', [OrderController::class, 'submit'])->name('order.submit');
 Route::get('/admin/orders', [OrderController::class, 'adminIndex'])->name('admin.orders');
 Route::post('/admin/orders/{id}/update-status', [OrderController::class, 'updateStatus'])->name('admin.orders.update');
+// Admin - Layanan
+Route::prefix('admin')->middleware(['auth'])->group(function (): void {
+    Route::get('/services', [App\Http\Controllers\Admin\ServiceController::class, 'index'])->name('admin.services.index');
+    Route::get('/services/create', [App\Http\Controllers\Admin\ServiceController::class, 'create'])->name('admin.services.create');
+    Route::post('/services/store', [App\Http\Controllers\Admin\ServiceController::class, 'store'])->name('admin.services.store');
+    // Edit & Update
+Route::get('/services/{id}/edit', [App\Http\Controllers\Admin\ServiceController::class, 'edit'])->name('admin.services.edit');
+Route::put('/services/{id}', [App\Http\Controllers\Admin\ServiceController::class, 'update'])->name('admin.services.update');
+Route::delete('/services/{id}', [App\Http\Controllers\Admin\ServiceController::class, 'destroy'])->name('admin.services.destroy');
+
+});
+
+// Route::middleware(['auth', 'admin'])->group(function () {
+//     Route::get('/admin/dashboard', function () {
+//         return view('admin.dashboard'); // atau view Livewire-mu
+//     })->name('admin.dashboard');
+// });
+
 // Route::post('/signature/save-signature', [App\Livewire\Dashboard\Settings\Signatures\Signatures::class, 'storeDraw'])->name('signature.store.draw');
 // Route::post('/signature/upload-signature', [App\Livewire\Dashboard\Settings\Signatures\Signatures::class, 'storeUpload'])->name('signature.store.upload');

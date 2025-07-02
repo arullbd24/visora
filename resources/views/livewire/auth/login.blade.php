@@ -5,7 +5,8 @@
             <div class="ctr-authLogin">
                 <div class="cAuthLogin flex items-center justify-center">
                     <div class="ctr-formFieldlogin">
-                        <form wire:submit.prevent='login' class="cformFieldlogin rounded-md flex items-center justify-center w-full p-5 bg-gray-900">
+                        <form wire:submit.prevent='login'
+                            class="cformFieldlogin rounded-md flex items-center justify-center w-full p-5 bg-gray-900">
                             @csrf
                             <div class="Form-contenMain">
                                 <div class="image-contain flex items-center justify-center">
@@ -23,30 +24,36 @@
                                     <div class="cFormLoginInpt my-6 space-y-8 w-72">
                                         <div class="form-input items-center gap-2 relative">
                                             {{-- <input type="text" id="email" name="email" wire:model.lazy="email" class="peer inptEmail text-sm w-full rounded-md bg-slate-100 border-1 border-gray-300 @error('email') is-invalid @enderror" placeholder=" "> --}}
-                                            <input required wire:model="email" type="text" id="email" name="email" class="peer inptEmail text-sm w-full rounded-md bg-slate-100 border-1 border-gray-300">
-                                            <label for="email" class="block text-sm cursor-text px-1.5 py-0.5 rounded-lg absolute transition-all -translate-y-1/2 top-1/2 peer-focus:-top-1/4 peer-focus:text-white">
+                                            <input required wire:model="email" type="text" id="email"
+                                                name="email"
+                                                class="peer inptEmail text-sm w-full rounded-md bg-slate-100 border-1 border-gray-300">
+                                            <label for="email"
+                                                class="block text-sm cursor-text px-1.5 py-0.5 rounded-lg absolute transition-all -translate-y-1/2 top-1/2 peer-focus:-top-1/4 peer-focus:text-white">
                                                 <div class="tx text-slate-400">
                                                     <p>Email</p>
-                                                </div>   
+                                                </div>
                                             </label>
                                             @error('email')
-                                            <div class="tx text-red-500 text-xs mt-1">
-                                                {{ $message }}
-                                            </div>            
+                                                <div class="tx text-red-500 text-xs mt-1">
+                                                    {{ $message }}
+                                                </div>
                                             @enderror
                                         </div>
                                         <div class="form-input items-center gap-2 relative">
                                             {{-- <input type="password" id="password" name="password" wire:model.lazy="password" class="peer inptPassword text-sm w-full rounded-md bg-slate-100 border-1 border-gray-300 @error('password') is-invalid @enderror" placeholder=" "> --}}
-                                            <input required wire:model='password' type="password" id="password" name="password" class="peer inptPassword text-sm w-full rounded-md bg-slate-100 border-1 border-gray-300">
-                                            <label for="password" class="block text-sm cursor-text px-1.5 py-0.5 rounded-lg absolute transition-all -translate-y-1/2 top-1/2 peer-focus:-top-1/4 peer-focus:text-white">
+                                            <input required wire:model='password' type="password" id="password"
+                                                name="password"
+                                                class="peer inptPassword text-sm w-full rounded-md bg-slate-100 border-1 border-gray-300">
+                                            <label for="password"
+                                                class="block text-sm cursor-text px-1.5 py-0.5 rounded-lg absolute transition-all -translate-y-1/2 top-1/2 peer-focus:-top-1/4 peer-focus:text-white">
                                                 <div class="tx text-slate-400">
                                                     <p>Password</p>
-                                                </div>  
-                                            </label>                                           
+                                                </div>
+                                            </label>
                                             @error('password')
-                                            <div class="tx text-red-500 text-xs mt-1">
-                                                {{ $message }}
-                                            </div>                            
+                                                <div class="tx text-red-500 text-xs mt-1">
+                                                    {{ $message }}
+                                                </div>
                                             @enderror
                                         </div>
                                     </div>
@@ -56,14 +63,15 @@
                                         <div class="txHref text-white">
                                             <p>Forgot password?</p>
                                         </div>
-                                            <div class="txHref text-[#1C64F2] ">
-                                                <a href="{{ route('forgot_password') }}">Click here</a>
-                                            </div>
+                                        <div class="txHref text-[#1C64F2] ">
+                                            <a href="{{ route('forgot_password') }}">Click here</a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="ctr-btnConfirSignIn mt-8 px-2">
                                     <div class="cBtnConfirSignIn">
-                                        <button type="submit" class="block w-full py-2 bg-[#1C64F2] hover:bg-[#A4CAFE   ] text-white rounded-xl">
+                                        <button type="submit"
+                                            class="block w-full py-2 bg-[#1C64F2] hover:bg-[#A4CAFE   ] text-white rounded-xl">
                                             <div class="txBtn">
                                                 <p>Continue</p>
                                             </div>
@@ -78,7 +86,8 @@
                                         <div class="txHref text-white">
                                             <p>Don't have account?</p>
                                         </div>
-                                        <a href="{{ route('auth.register') }}" class="AHrefFgtPass block text-[#1C64F2]" wire:navigate> 
+                                        <a href="{{ route('auth.register') }}" class="AHrefFgtPass block text-[#1C64F2]"
+                                            wire:navigate>
                                             <div class="txHref">
                                                 <p>Register</p>
                                             </div>
@@ -91,7 +100,8 @@
                             <div class="grp-cpryApps w-full selectDisable">
                                 <div class="ctr-cpryApps">
                                     <div class="cCpryApps w-fit mx-auto">
-                                        <div class="txCpyApps flex items-center gap-2" style="background: -webkit-linear-gradient(#E1EFFE,#1C64F2 ); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                                        <div class="txCpyApps flex items-center gap-2"
+                                            style="background: -webkit-linear-gradient(#E1EFFE,#1C64F2 ); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                                             <div class="icnCpry">
                                                 <span class="icn text-2xl">
                                                     <i class="far fa-copyright"></i>
@@ -112,8 +122,10 @@
     </div>
 </div>
 <script>
-    Livewire.on('redirect', url => {
-        window.location.href = url;
+    document.addEventListener("livewire:init", () => {
+        Livewire.on('redirect', url => {
+            window.location.href = url;
+        });
     });
 </script>
 

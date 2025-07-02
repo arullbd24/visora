@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace Database\Seeders;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
+use App\Models\UserPreference;
 
-class UserPreferenceSeeder extends Model
+class UserPreferenceSeeder extends Seeder
 {
-    use HasFactory;
-
-    protected $fillable = [
-        'user_id',
-        'theme',
-        'notification',
-    ];
+    public function run(): void
+    {
+        UserPreference::create([
+            'user_id' => 1,
+            'theme' => 'dark',
+            'notification' => true,
+        ]);
+    }
 }

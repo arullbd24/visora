@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kategori_paket', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('paket_jasa_id')->constrained('paket_jasa')->onDelete('cascade');
-            $table->foreignId('kategori_id')->constrained('kategori')->onDelete('cascade');
-        $table->timestamps();
+            $table->unsignedBigInteger('id_role');
+            $table->string('name'); // contoh: data_tps, jadwal_pengangkutan, dsb
+            $table->timestamps();
+
+            $table->foreign('id_role')->references('id')->on('roles')->onDelete('cascade');
         });
     }
 
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kategori_paket');
+        Schema::dropIfExists('permissions');
     }
 };

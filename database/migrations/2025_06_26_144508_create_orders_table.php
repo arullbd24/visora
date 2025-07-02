@@ -13,6 +13,7 @@ class CreateOrdersTable extends Migration
             $table->uuid('user_id'); // UUID sebagai foreign key
             $table->string('service_name');
             $table->string('email');
+            $table->string('whatsapp');
             $table->string('nama_pemesan');
             $table->date('tanggal_acara')->nullable();
             $table->text('catatan')->nullable();

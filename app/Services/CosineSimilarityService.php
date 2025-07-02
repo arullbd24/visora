@@ -30,21 +30,21 @@ class CosineSimilarityService
     }
 
     // Menghasilkan rekomendasi untuk user berdasarkan preferensi tag
-    public function getRecommendations(array $userPreference, array $services)
-    {
-        $results = [];
+    public function getRecommendations(array $userPreference, array $services)    
+{
+    $results = [];
 
-        foreach ($services as $serviceId => $serviceTags) {
-            $similarity = $this->cosineSimilarity($userPreference, $serviceTags);
-            $results[] = [
-                'service_id' => $serviceId,
-                'estimated_rating' => round($similarity, 3),
-            ];
-        }
-
-        usort($results, fn($a, $b) => $b['estimated_rating'] <=> $a['estimated_rating']);
-        return $results;
+    foreach ($services as $serviceId => $serviceTags) {
+        $similarity = $this->cosineSimilarity($userPreference, $serviceTags);
+        $results[] = [
+            'service_id' => $serviceId,
+            'estimated_rating' => round($similarity, 3),
+        ];
     }
+
+    usort($results, fn($a, $b) => $b['estimated_rating'] <=> $a['estimated_rating']);
+    return $results;
+}
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

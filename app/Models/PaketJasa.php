@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PaketJasa extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+    protected $casts = [
+        'kategori' => 'array', // kalau pakai JSON
+    ];
 }

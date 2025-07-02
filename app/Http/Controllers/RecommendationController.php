@@ -54,7 +54,14 @@ class RecommendationController extends Controller
         // Ambil data layanan
         $allTagsQuery = DB::table('service_tags')
             ->join('services', 'services.id', '=', 'service_tags.service_id')
-            ->select('services.id', 'services.name as nama', 'services.description as deskripsi', 'service_tags.tag', 'service_tags.weight');
+            ->select(
+                'services.id',
+                'services.name as nama',
+                'services.description as deskripsi',
+                'services.details as details',
+                'service_tags.tag',
+                'service_tags.weight'
+            );
 
         if ($kategoriFilter) {
             $allTagsQuery->where('services.categories', 'like', '%' . $kategoriFilter . '%');
@@ -70,6 +77,7 @@ class RecommendationController extends Controller
                 $serviceProfiles[$serviceId] = [
                     'nama' => $tag->nama,
                     'deskripsi' => $tag->deskripsi,
+                    'details' => $tag->details, // ✅ Fix agar muncul di modal
                     'tags' => []
                 ];
             }
@@ -104,7 +112,8 @@ class RecommendationController extends Controller
             $results[] = [
                 'nama' => $service['nama'],
                 'deskripsi' => $service['deskripsi'],
-                'score' => round($cosine * 100, 1), // Konversi ke persen
+                'details' => $service['details'], // ✅ Kirim ke view
+                'score' => round($cosine * 100, 1),
                 'justifikasi' => count($matchingTags)
                     ? 'Cocok karena kecocokan pada: ' . implode(', ', $matchingTags)
                     : 'Tidak ada kesamaan yang kuat.'
@@ -129,7 +138,6 @@ class RecommendationController extends Controller
                 'updated_at' => now(),
             ]);
         }
-
 
         return view('recommendation', [
             'recommendations' => $filtered
@@ -165,9 +173,6 @@ class RecommendationController extends Controller
 
         return redirect()->route('recommend.history')->with('success', 'Riwayat berhasil dihapus.');
     }
-
-
-
 
     public function saveRatings(Request $request)
     {

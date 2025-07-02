@@ -2,17 +2,13 @@
 
 namespace App\Livewire\Auth;
 
-use Livewire\Attributes;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 use App\Library\User as UserLibrary;
-
-use App\Models\Log\UserActivity;
-
 use Carbon\Carbon;
 
 class Login extends Component
@@ -24,32 +20,41 @@ class Login extends Component
     {
         $this->validate([
             'email' => 'required|string|email|max:255',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:6',
         ]);
 
-        // Attempt login using the provided email and password
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
-            UserLibrary\Activity::createActivity(
-                Auth::user()->id_user,
-                [
-                    'Account'
-                ],
-                [
-                'title' => 'Authenticate Account',
-                'type' => 'authenticate',
-                'entity' => 'account',
-                'description' => Auth::user()->userPersonal->fullname . ' login at ' . Carbon::now() ,
-                'changes' => []
-                ]
-            );
-            return redirect()->intended(route('dashboard.main'));
+            $user = Auth::user();
+
+            // Logging aktivitas (jika ada userPersonal)
+            try {
+                UserLibrary\Activity::createActivity(
+                    $user->id ?? $user->id_user, // fallback
+                    ['Account'],
+                    [
+                        'title' => 'Authenticate Account',
+                        'type' => 'authenticate',
+                        'entity' => 'account',
+                        'description' => ($user->userPersonal->fullname ?? $user->name) . ' login at ' . Carbon::now(),
+                        'changes' => []
+                    ]
+                );
+            } catch (\Throwable $e) {
+                Log::warning('Activity logging failed: ' . $e->getMessage());
+            }
+
+            // Redirect sesuai role
+            if ($user->is_admin) {
+                return redirect()->route('admin.dashboard');
+            } else {
+                return redirect()->route('dashboard.main');
+            }
         } else {
-            // dd('Auth Error');
-            session()->flash('error', 'Your email address or password may be incorrect!');
+            session()->flash('error', 'Email atau password salah.');
         }
     }
 
-    #[Attributes\Layout('auth.layouts.main')]
+    #[Layout('auth.layouts.main')]
     public function render()
     {
         return view('livewire.auth.login');

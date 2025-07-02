@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('services', function (Blueprint $table) {
-        $table->id();
-        $table->string('name'); // contoh: Paket A Company Profile
-        $table->text('description')->nullable();
-        $table->json('categories'); // misalnya: ["videografi", "editing"]
-        $table->timestamps();
-    });
+            $table->id();
+            $table->string('name');
+            $table->boolean('design')->default(0);
+            $table->boolean('security')->default(0);
+            $table->boolean('performance')->default(0);
+            $table->timestamps();
+        });
     }
 
     /**

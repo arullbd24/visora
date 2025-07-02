@@ -19,16 +19,19 @@ class OrderController extends Controller
         $request->validate([
             'service_name'   => 'required|string|max:255',
             'nama_pemesan'   => 'required|string|max:255',
+            'whatsapp'       => 'required|string|max:20',
             'email'          => 'required|email|max:255',
             'tanggal_acara'  => 'required|date',
             'catatan'        => 'nullable|string',
         ]);
+
 
         try {
             DB::table('orders')->insert([
                 'user_id'        => Auth::id(),
                 'service_name'   => $request->input('service_name'),
                 'nama_pemesan'   => $request->input('nama_pemesan'),
+                'whatsapp'       => $request->input('whatsapp'), // ✅ Tambah ini
                 'email'          => $request->input('email'),
                 'tanggal_acara'  => $request->input('tanggal_acara'),
                 'catatan'        => $request->input('catatan'),
@@ -37,19 +40,19 @@ class OrderController extends Controller
                 'updated_at'     => now(),
             ]);
 
+
             return redirect()->route('recommend.user')->with('success', 'Pesanan berhasil dikirim!');
         } catch (\Exception $e) {
             return back()->with('error', 'Terjadi kesalahan saat menyimpan: ' . $e->getMessage());
         }
     }
-    // Tampilkan semua pesanan
+
     public function adminIndex()
     {
         $orders = DB::table('orders')->orderByDesc('created_at')->get();
         return view('admin.orders', compact('orders'));
     }
 
-    // Ubah status (misalnya dikonfirmasi)
     public function updateStatus($id, Request $request)
     {
         $request->validate([

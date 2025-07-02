@@ -12,7 +12,6 @@
 <body class="bg-gradient-to-br from-blue-100 to-white min-h-screen py-10 px-6">
     <div class="max-w-4xl mx-auto">
         <div class="fixed top-6 right-6 z-50 space-y-3" x-data="{ show: true }">
-
             {{-- Success (Hijau) --}}
             @if (session('success'))
                 <div x-show="show" x-init="setTimeout(() => show = false, 4000)" x-transition
@@ -26,7 +25,6 @@
                         class="text-green-500 hover:text-green-800 font-bold text-lg">&times;</button>
                 </div>
             @endif
-
             {{-- Warning (Kuning) --}}
             @if (session('warning'))
                 <div x-show="show" x-init="setTimeout(() => show = false, 4000)" x-transition
@@ -40,7 +38,6 @@
                         class="text-yellow-500 hover:text-yellow-800 font-bold text-lg">&times;</button>
                 </div>
             @endif
-
             {{-- Error (Merah) --}}
             @if (session('error'))
                 <div x-show="show" x-init="setTimeout(() => show = false, 4000)" x-transition
@@ -54,46 +51,86 @@
                         class="text-red-500 hover:text-red-800 font-bold text-lg">&times;</button>
                 </div>
             @endif
-
         </div>
 
-
         <h1 class="text-3xl font-bold text-center text-blue-800 mb-10">Hasil Rekomendasi Layanan</h1>
+
         @if ($recommendations->isEmpty())
             <div class="text-center text-gray-500">Belum ada rekomendasi yang cocok.</div>
         @else
             <div class="grid md:grid-cols-2 gap-6">
-                @foreach ($recommendations as $rekom)
-                    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-                        <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ $rekom['nama'] }}</h2>
-                        <p class="text-gray-600 mb-3">{{ $rekom['deskripsi'] }}</p>
-                        <p class="font-medium">
-                            Skor Kecocokan:
+                @foreach ($recommendations as $index => $rekom)
+                    <div class="bg-white p-5 rounded shadow text-center">
+                        <h3 class="text-lg font-bold mb-1">{{ $rekom['nama'] }}</h3>
+                        <p class="text-sm text-gray-600 mb-2">{{ $rekom['deskripsi'] }}</p>
+
+                        <p class="text-sm">
+                            <strong>Skor Kecocokan:</strong>
                             <span
-                                class="
-                                {{ $rekom['score'] >= 80 ? 'text-green-600' : ($rekom['score'] >= 60 ? 'text-yellow-500' : 'text-red-500') }}">
+                                class="{{ $rekom['score'] >= 70 ? 'text-green-600' : ($rekom['score'] >= 50 ? 'text-yellow-600' : 'text-red-600') }}">
                                 {{ $rekom['score'] }}%
                             </span>
                         </p>
-                        <p class="text-sm text-gray-500 italic mt-1">{{ $rekom['justifikasi'] }}</p>
-                        <form action="{{ route('order.form') }}" method="GET">
-                            <input type="hidden" name="service_name" value="{{ $rekom['nama'] }}">
-                            <button type="submit"
-                                class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-                                Pesan Sekarang
-                            </button>
-                        </form>
+
+                        <p class="text-xs italic text-gray-500 mb-4">{{ $rekom['justifikasi'] }}</p>
+
+                        <button onclick="openModal({{ $index }})"
+                            class="bg-gray-300 text-sm text-gray-800 px-3 py-1 rounded hover:bg-gray-400 mb-2">
+                            Lihat Detail
+                        </button>
+
+                        <a href="{{ route('order.form', ['service_name' => $rekom['nama']]) }}"
+                            class="bg-blue-600 text-white text-sm px-4 py-2 rounded hover:bg-blue-700">
+                            Pesan Sekarang
+                        </a>
                     </div>
                 @endforeach
             </div>
+
+            {{-- Modals --}}
+            @foreach ($recommendations as $index => $rekom)
+                <div id="modal-{{ $index }}"
+                    class="fixed z-50 inset-0 hidden bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center">
+                    <div
+                        class="bg-white w-full max-w-lg rounded-2xl shadow-xl p-6 relative transition-all duration-300 transform scale-100">
+                        <button onclick="closeModal({{ $index }})"
+                            class="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
+
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">{{ $rekom['nama'] }}</h2>
+
+                        <div
+                            class="text-sm text-gray-700 whitespace-pre-line leading-relaxed max-h-[60vh] overflow-y-auto px-1 pr-3">
+                            {!! nl2br(e($rekom['details'] ?? 'Detail tidak tersedia.')) !!}
+                        </div>
+
+                        <div class="mt-6 text-right">
+                            <button onclick="closeModal({{ $index }})"
+                                class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition text-sm text-gray-700">
+                                Tutup
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
         @endif
+
         <div class="text-center mt-6">
             <a href="{{ route('recommend.history') }}" class="text-blue-600 hover:underline">
                 Lihat Riwayat Rekomendasi
             </a>
         </div>
-
     </div>
+
+    <script>
+        function openModal(index) {
+            document.getElementById('modal-' + index).classList.remove('hidden');
+        }
+
+        function closeModal(index) {
+            document.getElementById('modal-' + index).classList.add('hidden');
+        }
+    </script>
 </body>
 
 </html>

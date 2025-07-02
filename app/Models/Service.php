@@ -14,4 +14,9 @@ class Service extends Model
         'deskripsi',
         // tambahkan field lain jika ada
     ];
+    public function tags()
+{
+    return $this->hasMany(ServiceTag::class);
+}
+
 }
