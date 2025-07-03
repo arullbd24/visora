@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Order;
+
 
 class Service extends Model
 {
@@ -15,8 +17,11 @@ class Service extends Model
         // tambahkan field lain jika ada
     ];
     public function tags()
-{
-    return $this->hasMany(ServiceTag::class);
-}
-
+    {
+        return $this->hasMany(ServiceTag::class);
+    }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

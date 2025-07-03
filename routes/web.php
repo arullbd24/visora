@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminController;
 // use App\Http\Livewire\Auth\Login;
 use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 
 use App\Library\Helper as LibHelper;
 use App\Models\Files\FileDisk;
@@ -354,7 +355,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function (): void {
 Route::get('/services/{id}/edit', [App\Http\Controllers\Admin\ServiceController::class, 'edit'])->name('admin.services.edit');
 Route::put('/services/{id}', [App\Http\Controllers\Admin\ServiceController::class, 'update'])->name('admin.services.update');
 Route::delete('/services/{id}', [App\Http\Controllers\Admin\ServiceController::class, 'destroy'])->name('admin.services.destroy');
-
+Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
 
 // Route::middleware(['auth', 'admin'])->group(function () {

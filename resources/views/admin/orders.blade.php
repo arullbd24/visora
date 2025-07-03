@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="id">
+@extends('admin.layouts.admin')
 
-<head>
-    <meta charset="UTF-8">
-    <title>Kelola Pesanan</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-</head>
+@section('title', 'Daftar Pesanan Masuk')
+
+@section('content')
 
 <body class="bg-gray-100 min-h-screen p-6">
     <div class="max-w-5xl mx-auto bg-white p-6 rounded-xl shadow">
@@ -75,5 +71,4 @@
         @endif
     </div>
 </body>
-
-</html>
+@endsection

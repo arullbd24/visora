@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Tambah Layanan</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 min-h-screen p-6">
+@extends('admin.layouts.admin')
 
+@section('title', 'Tambah Layanan')
+
+@section('content')
+<body class="bg-gray-100 min-h-screen p-6">
     <div class="max-w-2xl mx-auto bg-white p-6 rounded shadow">
         <h1 class="text-xl font-bold text-blue-700 mb-4">Tambah Layanan Baru</h1>
 
@@ -46,4 +43,4 @@
     </div>
 
 </body>
-</html>
+@endsection
