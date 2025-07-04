@@ -1,4 +1,4 @@
-    <header class="flex items-center justify-between px-4 py-2 bg-black text-white w-full">
+    <header class="flex items-center justify-between px-4 py-2 bg-[#1c64f2] text-white w-full">
         <!-- LEFT SECTION -->
         <div class="flex items-center gap-2 overflow-x-auto">
             <!-- Sidebar toggle button (mobile only) -->
@@ -38,7 +38,7 @@
             @if (Str::contains(request()->route()->getName(), ['main', 'documents', 'inbox']))
                 <!-- Search -->
                 <div>
-                    <div class="searchFieldDashboard bg-gray-700 flex lg:flex-row-reverse items-center w-auto border border-slate-900 rounded-lg overflow-hidden transition-all focus-within:border-sky-600 focus-within:px-2 focus-within:rounded-full">
+                    <div class="searchFieldDashboard bg-white flex lg:flex-row-reverse items-center w-auto border border-white rounded-lg overflow-hidden transition-all focus-within:border-sky-600 focus-within:px-2 focus-within:rounded-full">
                         <label for="searchSomeDashboard" class="flex items-center justify-center w-10 aspect-square cursor-pointer">
                             <div>
                                 <ag-icon class="text-sm text-gray-300">
@@ -46,7 +46,7 @@
                                 </ag-icon>
                             </div>
                         </label>
-                        <input type="text" id="searchSomeDashboard" placeholder="Search Document" class="text-sm text-white bg-transparent p-0 border-none ring-0 focus:border-none focus:ring-0 w-0 focus:w-auto">
+                        <input type="text" id="searchSomeDashboard" placeholder="Search Document" class="text-sm text-black bg-transparent p-0 border-none ring-0 focus:border-none focus:ring-0 w-0 focus:w-auto">
                     </div>
                 </div>
             @endif

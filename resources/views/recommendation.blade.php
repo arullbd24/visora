@@ -7,8 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="{{ asset('assets/img/visora..png') }}" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    
 </head>
-
 <body class="bg-gradient-to-br from-blue-100 to-white min-h-screen py-10 px-6">
     <div class="max-w-4xl mx-auto">
         <div class="fixed top-6 right-6 z-50 space-y-3" x-data="{ show: true }">

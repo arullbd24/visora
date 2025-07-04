@@ -1,30 +1,39 @@
-<div class="itmNvHDashboard" x-data="{ openNotificationHeader: false }" @mousedown.outside="openNotificationHeader = false">
-    <button type="button" wire:click='loadNotificationsHeader' @click="openNotificationHeader = !openNotificationHeader" class="notifFieldDashboard block bg-gray-700 rounded-lg">
-        <div class="flex items-center justify-center w-10 aspect-square cursor-pointer">
-            <ag-icon class="text-sm text-gray-300">
-                <i class="fas fa-bell"></i>
-            </ag-icon>
-        </div>
+<div class="relative" x-data="{ openNotificationHeader: false }" @mousedown.outside="openNotificationHeader = false">
+    <!-- Notification Button -->
+    <button type="button"
+        wire:click="loadNotificationsHeader"
+        @click="openNotificationHeader = !openNotificationHeader"
+        class="w-10 h-10 rounded-full bg-white shadow flex items-center justify-center hover:bg-blue-100 transition duration-200 focus:outline-none">
+        <i class="fas fa-bell text-blue-600"></i>
     </button>
-    
-    <div class="ctr-wrapperDetailNotifFieldDashboard transition-all duration-300 absolute right-0"
-        :style="openNotificationHeader ? 'top: 100%; visibility: visible; opacity: 1;' : 'top: 75%; visibility: hidden; opacity: 0;'"
-        style="top: 75%; visibility: hidden; opacity: 0"
+
+    <!-- Dropdown Notification Panel -->
+    <div class="absolute right-0 mt-2 w-96 z-50 transition-all duration-300 origin-top-right"
+        x-show="openNotificationHeader"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-100"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-95"
+        @click.away="openNotificationHeader = false"
         style="display: none;"
-        >
-        
-        <div class="ctr-detailNotifFieldDashboard mt-4 w-[26rem] h-60 p-2 bg-gradient-to-b from-[#202D49] to-gray-700 rounded-xl">
-            <div class="cDetailNotifFieldDashboard bg-white ">
+    >
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+            <div class="p-4 text-sm font-semibold text-gray-700 border-b">
+                Notifikasi Terbaru
+            </div>
+            <div class="max-h-60 overflow-y-auto text-sm">
                 @if ($loadedNotification)
-                    <ul class="lstNotification" wire:transition>
+                    <ul class="divide-y divide-gray-100">
                         @forelse ($notificationsData as $notification)
-                            <li class="p-2 border-b">{{ $notification->message }}</li>
+                            <li class="p-3 hover:bg-gray-50 transition">{{ $notification->message }}</li>
                         @empty
-                            <li class="p-2">No notifications</li>
+                            <li class="p-3 text-gray-400 text-center">Belum ada notifikasi.</li>
                         @endforelse
                     </ul>
                 @else
-                    <div class="p-2 text-gray-400">Loading notifications...</div>
+                    <div class="p-3 text-gray-400 text-center">Memuat notifikasi...</div>
                 @endif
             </div>
         </div>

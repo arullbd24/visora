@@ -10,7 +10,7 @@
             </div>
         </div>
         <button type="button" class="imgUserField block" @click="openProfileHeader = !openProfileHeader">
-            <ag-image class="rounded-full bg-gray-700 p-0.5">
+            <ag-image class="rounded-full bg-white p-0.5">
                 <ag-image-content class="size-14 aspect-square overflow-hidden rounded-full">
                     <img src="{{ asset('assets/img/visora..png') }}" alt="" class="size-full object-cover object-center" >
                 </ag-image-content>
@@ -25,7 +25,7 @@
         >
         
         <div class="cWrapperDetailProfileDashboard">
-            <div class="ctr-detailProfileDashboard mt-1 w-[26rem] bg-gradient-to-b from-[#202D49] to-gray-700 rounded-xl overflow-hidden">
+            <div class="ctr-detailProfileDashboard mt-1 w-[26rem] bg-blue-600 from-[#202D49] to-white rounded-xl overflow-hidden">
                 <div class="cDetailProfileDashboard">
                     <div class="ctr-headWrapperDetail mt-2 p-2">
                         <div class="cHeadWrapperDetail pl-4">
@@ -35,16 +35,16 @@
                         </div>
                     </div>
                     <div class="ctr-profileDataWrapperDetail  mt-2 p-2">
-                        <div class="cProfileDataWrapperDetail flex items-center gap-2 p-2 bg-gray-900 rounded-xl select-none">
+                        <div class="cProfileDataWrapperDetail flex items-center gap-2 p-2 bg-white rounded-xl select-none">
                             <div class="avatarProfile">
-                                <ag-avatar class="rounded-full bg-gray-700 p-0.5 w-fit">
+                                <ag-avatar class="rounded-full bg-white p-0.5 w-fit">
                                     <ag-avatar-content class="size-14 aspect-square overflow-hidden rounded-full">
                                         <img src="{{ asset('assets/img/visora..png') }}" alt="" class="size-full object-cover object-center" >
                                     </ag-avatar-content>
                                 </ag-avatar>
                             </div>
                             <div class="dataProfile -space-y-1">
-                                <div class="txNameProfile text-gray-300">
+                                <div class="txNameProfile text-black">
                                     <p>{{ auth()->user()->userPersonal->fullname }}</p>
                                 </div>
                                 <div class="txUsernameProfile text-sm text-gray-500">
@@ -103,7 +103,7 @@
                     </div>
                     
                     <div class="logoutWrapperDetail mt-4">
-                        <a href="" class="logoutFieldHeaderDashboard block p-2 rounded-lg overflow-hidden relative transition-all group text-red-400 hover:bg-gray-600" {{ $itmNavAside->wireNavigate ? 'wire:navigate' : '' }}>
+                        <a href="{{ route('guest.main') }}" class="logoutFieldHeaderDashboard block p-2 rounded-lg overflow-hidden relative transition-all group text-red-400 hover:bg-gray-600" {{ $itmNavAside->wireNavigate ? 'wire:navigate' : '' }}>
                             <div class="cLogoutFieldHeaderDashboard flex items-center gap-2">
                                 <div class="icnHome size-8 flex items-center justify-center">
                                     <ag-icon class="text-lg text-center">

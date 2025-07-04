@@ -22,7 +22,7 @@
     </div>
 </header> --}}
 
-@if (Str::contains(request()->route()->getName(), ['dashboard', 'inbox', 'documents']))
+{{-- @if (Str::contains(request()->route()->getName(), ['dashboard', 'inbox', 'documents'])) --}}
     {{-- <div class="headUpDocumentAside px-2 py-4 mx-auto xl:w-3/4">
         <a href="{{ route('documents.upload\main') }}" class="ctr-actionAddDocSign flex items-center justify-center bg-[#FFD700] p-2 rounded-xl max-xl:size-16 max-xl:aspect-square xl:rounded-xl" wire:navigate>
             <div class="cActionAddDocSign flex items-center justify-center gap-4">
@@ -52,10 +52,10 @@
             </div>
         </a>
     </div> --}}
-@endif
+{{-- @endif --}}
 
 {{-- <nav class="{{ Str::contains(request()->route()->getName(), 'main') ? 'xl:mt-4' : '' }} flex-grow p-2 bg-gray-800 rounded-xl"> --}}
-<nav class="flex-grow p-2 bg-gray-900 rounded-t-xl">
+{{-- <nav class="flex-grow p-2 bg-gray-900 rounded-t-xl"> --}}
     {{-- <div class="cNavAside space-y-0.5 h-full overflow-c overflow-c-gray">
         @php
             $LstNavAside = [
@@ -118,7 +118,7 @@
             </div>
         @endforeach
     </div> --}}
-    @if (Str::contains(request()->route()->getName(), ['dashboard', 'documents', 'inbox', 'place_sign']))
+    {{-- @if (Str::contains(request()->route()->getName(), ['dashboard', 'documents', 'inbox', 'place_sign']))
         @livewire('Dashboard.Layouts.Nav.Main')
     @endif
     @if (Str::contains(request()->route()->getName(), 'setting'))
@@ -127,11 +127,11 @@
     @if (Str::contains(request()->route()->getName(), 'account'))
         @livewire('Dashboard.Layouts.Nav.Account')
     @endif
-</nav>
+</nav> --}}
 
 {{-- <div class="fooNavAside p-2 pt-4 flex-grow flex flex-col justify-end"> --}}
-<div class="fooNavAside p-2 pt-4 bg-gray-900 shrink-0 h-48" wire:ignore>
-    @livewire('Dashboard.Layouts.Sidebar.Logout')
+{{-- <div class="fooNavAside p-2 pt-4 bg-gray-900 shrink-0 h-48" wire:ignore>
+    @livewire('Dashboard.Layouts.Sidebar.Logout') --}}
     {{-- <a href="" class="ctr-actionLogout flex items-center max-xl:justify-center bg-transparent p-2 rounded-xl max-xl:size-16 max-xl:aspect-square xl:rounded-xl text-gray-300">
         <div class="cActionLogout flex items-center justify-center gap-4">
             <div class="icnLogout size-8 flex items-center justify-center" role="img" aria-label="Icon Logout">
@@ -144,4 +144,4 @@
             </div>
         </div>
     </a> --}}
-</div>
+{{-- </div> --}}

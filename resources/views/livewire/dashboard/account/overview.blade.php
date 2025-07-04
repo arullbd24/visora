@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        <div class="p-4 border rounded-lg bg-gray-50 flex items-start space-x-2">
+        {{-- <div class="p-4 border rounded-lg bg-gray-50 flex items-start space-x-2">
             <!-- Icon -->
             <svg class="w-6 h-6 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4.354 4.354 0 100 8.708 4.354 4.354 0 000-8.708zM2.5 20h19a1 1 0 100-2h-19a1 1 0 100 2z" />
@@ -58,7 +58,7 @@
                     Manage digital certificate
                 </a>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <hr class="my-4 border-t-2 border-gray-200">
