@@ -47,8 +47,8 @@ class Login extends Component
 
 
     public function authUser(){
-        if (Auth::guard('user')->attempt(['email' => $this->email, 'password' => $this->password])) {
-            $user = Auth::guard('user')->user();
+        if (Auth::guard('web')->attempt(['email' => $this->email, 'password' => $this->password])) {
+            $user = Auth::guard('web')->user();
 
             try {
                 UserLibrary\Activity::createActivity(

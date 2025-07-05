@@ -46,7 +46,7 @@
                                 </ag-icon>
                             </div>
                         </label>
-                        <input type="text" id="searchSomeDashboard" placeholder="Search Document" class="text-sm text-black bg-transparent p-0 border-none ring-0 focus:border-none focus:ring-0 w-0 focus:w-auto">
+                        <input type="text" id="searchSomeDashboard" placeholder="Cari layanan" class="text-sm text-black bg-transparent p-0 border-none ring-0 focus:border-none focus:ring-0 w-0 focus:w-auto">
                     </div>
                 </div>
             @endif
