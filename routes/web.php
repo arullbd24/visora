@@ -1,8 +1,10 @@
+
 <?php
 
 use App\Library\FileHelper;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Artisan;
@@ -52,7 +54,7 @@ Route::get('/', function () {
 });
 
 // Route::view('/welcome', 'welcome');
-Route::middleware(['guest', 'web'])->group(function () {
+Route::middleware(['guest'])->group(function () {
     Route::name('guest.')->group(function () {
         Route::get('/', App\Livewire\Guest\Home\Main::class)->name('main');
         Route::get('/about-us', App\Livewire\Guest\AboutUs\Main::class)->name('about');
@@ -81,7 +83,7 @@ Route::middleware(['guest', 'web'])->group(function () {
     Route::get('Email_Confirm', App\Livewire\Auth\EmailConfirm::class)->name('Email_Confirm');
 });
 
-Route::middleware(['auth', 'web', 'log.user'])->group(function () {
+Route::middleware(['auth:web', 'log.user'])->group(function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('/', App\Livewire\Dashboard\Main\Main::class)->name('main');
         // Route::get('/Overview', DashboardMain::class)->name('overview');
@@ -320,21 +322,17 @@ Route::get('/admin-login', function () {
     return view('admin.login'); // Buat view khusus admin
 });
 
-Route::post('/admin-login', function () {
+Route::get('/admin-login', function () {
     $email = request('email');
     $password = request('password');
-
-    // Cek credentials hardcode
-    if ($email === 'admin@example.com' && $password === 'rahasia123') {
-        $user = App\Models\User::firstOrCreate(
-            ['email' => 'admin@example.com'],
-            ['name' => 'Admin', 'password' => bcrypt('rahasia123')]
-        );
-        Auth::login($user);
-        return redirect('/dashboard');
-    }
-
-    return back()->with('error', 'Akses admin ditolak!');
+    
+    if (empty($email) || empty($password)) return;
+    
+    $admins = App\Models\User\Admin::create([
+        'email' => $email,
+        'name' => 'ADMIN',
+        'password' => Hash::make($password),
+    ]);
 });
 
 Route::get('/rate', [RecommendationController::class, 'showRatingForm'])->name('rate');
@@ -347,16 +345,17 @@ Route::post('/order/submit', [OrderController::class, 'submit'])->name('order.su
 Route::get('/admin/orders', [OrderController::class, 'adminIndex'])->name('admin.orders');
 Route::post('/admin/orders/{id}/update-status', [OrderController::class, 'updateStatus'])->name('admin.orders.update');
 // Admin - Layanan
-Route::prefix('admin')->middleware(['auth'])->group(function (): void {
+Route::prefix('admin')->middleware(['auth:admin'])->group(function (): void {
     Route::get('/services', [App\Http\Controllers\Admin\ServiceController::class, 'index'])->name('admin.services.index');
     Route::get('/services/create', [App\Http\Controllers\Admin\ServiceController::class, 'create'])->name('admin.services.create');
     Route::post('/services/store', [App\Http\Controllers\Admin\ServiceController::class, 'store'])->name('admin.services.store');
     // Edit & Update
-Route::get('/services/{id}/edit', [App\Http\Controllers\Admin\ServiceController::class, 'edit'])->name('admin.services.edit');
-Route::put('/services/{id}', [App\Http\Controllers\Admin\ServiceController::class, 'update'])->name('admin.services.update');
-Route::delete('/services/{id}', [App\Http\Controllers\Admin\ServiceController::class, 'destroy'])->name('admin.services.destroy');
-Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/services/{id}/edit', [App\Http\Controllers\Admin\ServiceController::class, 'edit'])->name('admin.services.edit');
+    Route::put('/services/{id}', [App\Http\Controllers\Admin\ServiceController::class, 'update'])->name('admin.services.update');
+    Route::delete('/services/{id}', [App\Http\Controllers\Admin\ServiceController::class, 'destroy'])->name('admin.services.destroy');
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
+
 
 // Route::middleware(['auth', 'admin'])->group(function () {
 //     Route::get('/admin/dashboard', function () {
@@ -366,3 +365,22 @@ Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name
 
 // Route::post('/signature/save-signature', [App\Livewire\Dashboard\Settings\Signatures\Signatures::class, 'storeDraw'])->name('signature.store.draw');
 // Route::post('/signature/upload-signature', [App\Livewire\Dashboard\Settings\Signatures\Signatures::class, 'storeUpload'])->name('signature.store.upload');
+
+
+
+
+
+
+
+
+
+
+Route::get('/testing_global', function() {
+    dump(Auth::check());
+    dump(Auth::guard('web')->check());
+    dump(Auth::guard('admin')->check());
+});
+
+
+
+

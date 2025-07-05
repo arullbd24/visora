@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->timestamps();
 
             // Foreign key UUID ke users.id
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id_user')->on('user')->onDelete('cascade');
         });
     }
 

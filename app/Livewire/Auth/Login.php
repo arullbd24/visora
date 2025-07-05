@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 use App\Library\User as UserLibrary;
+use App\Models\User as UserModels;
 use Carbon\Carbon;
 
 class Login extends Component
@@ -22,14 +23,36 @@ class Login extends Component
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:6',
         ]);
+        
+        
+        if (UserModels\User::where('email', '=', $this->email)->exists()) {
+            return $this->authUser();
+        } 
+        
+        if (UserModels\Admin::where('email', '=', $this->email)->exists()) {
+            return $this->authAdmin();
+        }
+        
+    }
 
-        if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
-            $user = Auth::user();
+    #[Layout('auth.layouts.main')]
+    public function render()
+    {
+        return view('livewire.auth.login');
+    }
 
-            // Logging aktivitas (jika ada userPersonal)
+
+
+
+
+
+    public function authUser(){
+        if (Auth::guard('user')->attempt(['email' => $this->email, 'password' => $this->password])) {
+            $user = Auth::guard('user')->user();
+
             try {
                 UserLibrary\Activity::createActivity(
-                    $user->id ?? $user->id_user, // fallback
+                    $user->id ?? $user->id_user,
                     ['Account'],
                     [
                         'title' => 'Authenticate Account',
@@ -43,20 +66,35 @@ class Login extends Component
                 Log::warning('Activity logging failed: ' . $e->getMessage());
             }
 
-            // Redirect sesuai role
-            if ($user->is_admin) {
-                return redirect()->route('admin.dashboard');
-            } else {
-                return redirect()->route('dashboard.main');
-            }
-        } else {
-            session()->flash('error', 'Email atau password salah.');
+            return redirect()->route($user->is_admin ? 'admin.dashboard' : 'dashboard.main');
         }
+
+        session()->flash('error', 'Email atau password salah.');
     }
 
-    #[Layout('auth.layouts.main')]
-    public function render()
-    {
-        return view('livewire.auth.login');
+    
+    public function authAdmin(){
+        $credentials = [
+            'email' => $this->email,
+            'password' => $this->password,
+        ];
+
+        if (Auth::guard('admin')->attempt($credentials)) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        session()->flash('error', 'Email atau password salah.');
     }
+
+
+
+
+
+
+
+
+
+
+
+
 }
