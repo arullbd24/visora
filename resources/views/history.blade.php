@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="id">
+@extends('dashboard.layouts.main')
 
-<head>
-    <meta charset="UTF-8">
-    <title>Riwayat Rekomendasi</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" href="{{ asset('assets/img/visora..png') }}" type="image/x-icon">
-</head>
+@section('title', 'Dashboard')
 
+@section('content')
 <body class="bg-gray-100 py-8 px-4 min-h-screen">
     <div class="max-w-3xl mx-auto bg-white rounded-xl shadow p-6">
         <h1 class="text-2xl font-bold text-center text-blue-700 mb-6">Riwayat Rekomendasi Kamu</h1>
@@ -59,5 +54,4 @@
         @endforelse
     </div>
 </body>
-
-</html>
+@endsection

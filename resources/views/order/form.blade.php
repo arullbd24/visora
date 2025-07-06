@@ -3,9 +3,11 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<body class="bg-gray-50 min-h-screen flex items-center justify-center p-6">
+
+<div class="min-h-screen flex items-center justify-center bg-gray-50 p-6">
     <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-lg">
         <h2 class="text-2xl font-bold text-blue-700 mb-6">Form Pemesanan Layanan</h2>
+
         <form method="POST" action="{{ route('order.submit') }}" class="space-y-4">
             @csrf
             <input type="hidden" name="service_name" value="{{ $service }}">
@@ -31,8 +33,8 @@
             <div>
                 <label for="whatsapp" class="block text-sm font-medium text-gray-700">No. WhatsApp</label>
                 <input type="text" name="whatsapp" id="whatsapp"
-                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2" placeholder="08xxxxxxxxxx"
-                    required>
+                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2"
+                    placeholder="08xxxxxxxxxx" required>
             </div>
 
             <div>
@@ -47,10 +49,12 @@
                     class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"></textarea>
             </div>
 
-            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+            <button type="submit"
+                class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
                 Kirim Pesanan
             </button>
         </form>
     </div>
-</body>
+</div>
+
 @endsection

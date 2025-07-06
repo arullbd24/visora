@@ -1,4 +1,4 @@
-<div>
+{{-- <div>
     @if ($authPassword)
         <div class="headerTop p-6 bg-white rounded-lg shadow-md relative mx-auto mt-10">
             <form wire:submit.prevent="changePassword">
@@ -70,4 +70,4 @@
             icon.classList.toggle('fa-eye-slash');
         }
     </script>
-@endpush
+@endpush --}}
