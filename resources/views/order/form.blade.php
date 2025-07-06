@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="id">
+@extends('dashboard.layouts.main')
 
-<head>
-    <meta charset="UTF-8">
-    <title>Form Pemesanan</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+@section('title', 'Dashboard')
 
+@section('content')
 <body class="bg-gray-50 min-h-screen flex items-center justify-center p-6">
     <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-lg">
         <h2 class="text-2xl font-bold text-blue-700 mb-6">Form Pemesanan Layanan</h2>
@@ -57,5 +53,4 @@
         </form>
     </div>
 </body>
-
-</html>
+@endsection

@@ -1,8 +1,9 @@
+
 <section>
     <div>
-        <header class="ctr-headerMainContent">
+        {{-- <header class="ctr-headerMainContent">
             <div class="cHeaderMainContent">
-                <div class="txHeaderMainC">
+                <div class="txHeaderMainC"> --}}
                     <div class="txHead text-xl font-semibold">
                         <h1>Welcome {{ auth()->user()->userPersonal->fullname }}</h1>
                     </div>

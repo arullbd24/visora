@@ -380,7 +380,3 @@ Route::get('/testing_global', function() {
     dump(Auth::guard('web')->check());
     dump(Auth::guard('admin')->check());
 });
-
-
-
-

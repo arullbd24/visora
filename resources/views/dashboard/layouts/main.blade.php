@@ -74,7 +74,6 @@
 <body class="bg-gray-50">
     <header class="w-full py-2 px-4 bg-[#1c64f2] fixed top-0 transition-all" aria-label="Global Navigation" wire:ignore>
         <div class="cHeadDashboard flex items-center justify-between">
-        
             @include('dashboard.layouts.header')
         </div>
     </header>
@@ -101,7 +100,8 @@
                 @endif
                 <div class="cMainContentDashboard {{ Str::contains(request()->route()->getName(), 'setting') ? 'mt-10' : '' }} p-2"
                     aria-label="Main Content">
-                    {{ $slot }}
+                 @yield('content')
+                    {{-- {{ $slot }} --}}
                 </div>
             </main>
         </div>

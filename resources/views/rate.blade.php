@@ -1,13 +1,18 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <title>Form Preferensi Layanan</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
+</head> --}}
+@extends('dashboard.layouts.main')
 
-<body class="bg-gradient-to-br from-blue-50 to-white min-h-screen flex items-center justify-center p-6">
+@section('title', 'Dashboard')
+
+@section('content')
+
+{{-- <body class="bg-gradient-to-br from-blue-50 to-white min-h-screen flex items-center justify-center p-6"> --}}
     <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
         <h1 class="text-2xl font-bold text-center mb-6 text-blue-700">Preferensi Layanan</h1>
 
@@ -67,6 +72,6 @@
         </form>
 
     </div>
-</body>
-
-</html>
+{{-- </body> --}}
+@endsection
+{{-- </html> --}}
