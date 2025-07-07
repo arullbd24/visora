@@ -66,20 +66,24 @@
                                     {{ $rekom['score'] }}%
                                 </span>
                             </p>
-
                             <p class="text-xs italic text-gray-500 mb-4">{{ $rekom['justifikasi'] }}</p>
                             <!-- Carousel untuk setiap layanan -->
                             <div id="carousel-{{ $index }}" class="relative w-full mb-4" data-carousel="slide">
                                 <div class="relative h-40 overflow-hidden rounded-lg flex items-center justify-center">
+                                    @php
+                                        $slugNama = \Str::slug($rekom['nama'], '_'); // contoh: 'Company Profile' → 'company_profile'
+                                    @endphp
+
                                     @for ($i = 1; $i <= 3; $i++)
-                                        <div class="hidden duration-700 ease-in-out" data-carousel-item
-                                            {{ $i == 1 ? 'class=block' : '' }}>
-                                            <img src="{{ asset('assets/img/sample-' . $i . '.jpg') }}"
+                                        <div class="{{ $i == 1 ? 'block' : 'hidden' }} duration-700 ease-in-out"
+                                            data-carousel-item>
+                                            <img src="{{ asset('assets/img/' . $slugNama . '-' . $i . '.png') }}"
                                                 class="block w-full h-40 object-cover rounded"
-                                                alt="Slide {{ $i }}">
+                                                alt="Slide {{ $i }} {{ $rekom['nama'] }}">
                                         </div>
                                     @endfor
                                 </div>
+
                                 <!-- Indicator -->
                                 <div class="absolute z-30 flex -translate-x-1/2 bottom-2 left-1/2 space-x-2">
                                     @for ($i = 0; $i < 3; $i++)
@@ -88,6 +92,7 @@
                                             data-carousel-slide-to="{{ $i }}"></button>
                                     @endfor
                                 </div>
+
                                 <!-- Controls -->
                                 <button type="button"
                                     class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-2 cursor-pointer group focus:outline-none"
