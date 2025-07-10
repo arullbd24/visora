@@ -325,9 +325,9 @@ Route::get('/admin-login', function () {
 Route::get('/admin-login', function () {
     $email = request('email');
     $password = request('password');
-    
+
     if (empty($email) || empty($password)) return;
-    
+
     $admins = App\Models\User\Admin::create([
         'email' => $email,
         'name' => 'ADMIN',
@@ -355,6 +355,8 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function (): void {
     Route::delete('/services/{id}', [App\Http\Controllers\Admin\ServiceController::class, 'destroy'])->name('admin.services.destroy');
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
+Route::get('/pay', [\App\Http\Controllers\PaymentController::class, 'pay']);
+
 
 
 // Route::middleware(['auth', 'admin'])->group(function () {
@@ -375,7 +377,7 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function (): void {
 
 
 
-Route::get('/testing_global', function() {
+Route::get('/testing_global', function () {
     dump(Auth::check());
     dump(Auth::guard('web')->check());
     dump(Auth::guard('admin')->check());

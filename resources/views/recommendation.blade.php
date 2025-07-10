@@ -4,48 +4,26 @@
 
 @section('content')
 
-    <body class="bg-gradient-to-br from-blue-100 to-white min-h-screen py-10 px-6">
-        <div class="max-w-4xl mx-auto">
+    <body class="bg-gradient-to-br from-blue-100 to-white min-h-screen pt-40 px-6 relative z-0">
+        <div class="max-w-4xl mx-auto z-0 relative">
             <div class="fixed top-6 right-6 z-50 space-y-3" x-data="{ show: true }">
-                {{-- Success (Hijau) --}}
-                @if (session('success'))
-                    <div x-show="show" x-init="setTimeout(() => show = false, 4000)" x-transition
-                        class="flex items-center gap-4 p-4 bg-green-100 border border-green-300 text-green-800 rounded-lg shadow-md">
-                        <span class="text-2xl">✅</span>
-                        <div class="flex-1">
-                            <p class="font-semibold">Berhasil</p>
-                            <p class="text-sm">{{ session('success') }}</p>
+                {{-- Flash Messages --}}
+                @foreach (['success' => 'green', 'warning' => 'yellow', 'error' => 'red'] as $type => $color)
+                    @if (session($type))
+                        <div x-show="show" x-init="setTimeout(() => show = false, 4000)" x-transition
+                            class="flex items-center gap-4 p-4 bg-{{ $color }}-100 border border-{{ $color }}-300 text-{{ $color }}-800 rounded-lg shadow-md">
+                            <span class="text-2xl">
+                                {{ $type === 'success' ? '✅' : ($type === 'warning' ? '⚠️' : '❌') }}
+                            </span>
+                            <div class="flex-1">
+                                <p class="font-semibold">{{ ucfirst($type) }}</p>
+                                <p class="text-sm">{{ session($type) }}</p>
+                            </div>
+                            <button @click="show = false"
+                                class="text-{{ $color }}-500 hover:text-{{ $color }}-800 font-bold text-lg">&times;</button>
                         </div>
-                        <button @click="show = false"
-                            class="text-green-500 hover:text-green-800 font-bold text-lg">&times;</button>
-                    </div>
-                @endif
-                {{-- Warning (Kuning) --}}
-                @if (session('warning'))
-                    <div x-show="show" x-init="setTimeout(() => show = false, 4000)" x-transition
-                        class="flex items-center gap-4 p-4 bg-yellow-100 border border-yellow-300 text-yellow-800 rounded-lg shadow-md">
-                        <span class="text-2xl">⚠️</span>
-                        <div class="flex-1">
-                            <p class="font-semibold">Peringatan</p>
-                            <p class="text-sm">{{ session('warning') }}</p>
-                        </div>
-                        <button @click="show = false"
-                            class="text-yellow-500 hover:text-yellow-800 font-bold text-lg">&times;</button>
-                    </div>
-                @endif
-                {{-- Error (Merah) --}}
-                @if (session('error'))
-                    <div x-show="show" x-init="setTimeout(() => show = false, 4000)" x-transition
-                        class="flex items-center gap-4 p-4 bg-red-100 border border-red-300 text-red-800 rounded-lg shadow-md">
-                        <span class="text-2xl">❌</span>
-                        <div class="flex-1">
-                            <p class="font-semibold">Gagal</p>
-                            <p class="text-sm">{{ session('error') }}</p>
-                        </div>
-                        <button @click="show = false"
-                            class="text-red-500 hover:text-red-800 font-bold text-lg">&times;</button>
-                    </div>
-                @endif
+                    @endif
+                @endforeach
             </div>
 
             <h1 class="text-3xl font-bold text-center text-blue-800 mb-10">Hasil Rekomendasi Layanan</h1>
@@ -55,7 +33,7 @@
             @else
                 <div class="grid md:grid-cols-2 gap-6">
                     @foreach ($recommendations as $index => $rekom)
-                        <div class="bg-white p-5 rounded shadow text-center">
+                        <div class="bg-white p-5 rounded shadow text-center relative z-0 overflow-hidden">
                             <h3 class="text-lg font-bold mb-1">{{ $rekom['nama'] }}</h3>
                             <p class="text-sm text-gray-600 mb-2">{{ $rekom['deskripsi'] }}</p>
 
@@ -67,21 +45,47 @@
                                 </span>
                             </p>
                             <p class="text-xs italic text-gray-500 mb-4">{{ $rekom['justifikasi'] }}</p>
-                            <!-- Carousel untuk setiap layanan -->
-                            <div id="carousel-{{ $index }}" class="relative w-full mb-4" data-carousel="slide">
-                                <div class="relative h-40 overflow-hidden rounded-lg flex items-center justify-center">
+
+                            <!-- Carousel -->
+                            <!-- Carousel -->
+                            <div id="carousel-{{ $index }}" class="relative w-full mb-4 z-0" data-carousel="slide">
+                                <div
+                                    class="relative h-40 min-h-[160px] overflow-hidden rounded-lg flex items-center justify-center">
                                     @php
-                                        $slugNama = \Str::slug($rekom['nama'], '_'); // contoh: 'Company Profile' → 'company_profile'
+                                        $slugNama = \Str::slug($rekom['nama'], '_');
+                                        $isYouTube =
+                                            isset($rekom['youtube']) &&
+                                            Str::contains($rekom['youtube'], 'youtube.com/watch');
                                     @endphp
 
-                                    @for ($i = 1; $i <= 3; $i++)
-                                        <div class="{{ $i == 1 ? 'block' : 'hidden' }} duration-700 ease-in-out"
-                                            data-carousel-item>
-                                            <img src="{{ asset('assets/img/' . $slugNama . '-' . $i . '.png') }}"
-                                                class="block w-full h-40 object-cover rounded"
-                                                alt="Slide {{ $i }} {{ $rekom['nama'] }}">
-                                        </div>
-                                    @endfor
+                                    @if ($isYouTube)
+                                        @php
+                                            // Ambil ID dari YouTube URL
+                                            parse_str(parse_url($rekom['youtube'], PHP_URL_QUERY), $ytParams);
+                                            $videoId = $ytParams['v'] ?? null;
+                                        @endphp
+
+                                        @if ($videoId)
+                                            <div class="block duration-700 ease-in-out" data-carousel-item>
+                                                <img src="https://img.youtube.com/vi/{{ $videoId }}/0.jpg"
+                                                    class="block w-full h-40 object-cover rounded"
+                                                    alt="Thumbnail YouTube {{ $rekom['nama'] }}">
+                                            </div>
+                                        @else
+                                            <div class="block text-center text-sm text-red-500">
+                                                Thumbnail tidak dapat dimuat.
+                                            </div>
+                                        @endif
+                                    @else
+                                        @for ($i = 1; $i <= 3; $i++)
+                                            <div class="{{ $i === 1 ? 'block' : 'hidden' }} duration-700 ease-in-out"
+                                                data-carousel-item>
+                                                <img src="{{ asset('assets/img/' . $slugNama . '-' . $i . '.png') }}"
+                                                    class="block w-full h-40 object-cover rounded"
+                                                    alt="Slide {{ $i }} {{ $rekom['nama'] }}">
+                                            </div>
+                                        @endfor
+                                    @endif
                                 </div>
 
                                 <!-- Indicator -->
@@ -118,6 +122,7 @@
                                 </button>
                             </div>
 
+
                             <button onclick="openModal({{ $index }})"
                                 class="bg-gray-300 text-sm text-gray-800 px-3 py-1 rounded hover:bg-gray-400 mb-2">
                                 Lihat Detail
@@ -131,7 +136,7 @@
                     @endforeach
                 </div>
 
-                {{-- Modals --}}
+                {{-- Modal --}}
                 @foreach ($recommendations as $index => $rekom)
                     <div id="modal-{{ $index }}"
                         class="fixed z-50 inset-0 hidden bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center">
@@ -156,7 +161,6 @@
                         </div>
                     </div>
                 @endforeach
-
             @endif
 
             <div class="text-center mt-6">
