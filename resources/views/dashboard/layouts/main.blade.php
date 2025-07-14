@@ -72,13 +72,13 @@
 </head>
 
 <body class="bg-gray-50">
-    <header class="w-full py-2 px-4 bg-[#1c64f2]  fixed top-0 transition-all" aria-label="Global Navigation"
+    <div class="w-full py-2 px-4 bg-[#1c64f2]  fixed top-0 transition-all" aria-label="Global Navigation"
         wire:ignore>
         <div class="cHeadDashboard flex items-center justify-between">
             @include('dashboard.layouts.header')
             {{-- @livewire('dashboard.main.main') --}}
         </div>
-    </header>
+    </div>
     <div class="dashboard-content flex">
         {{-- <aside id="id-asideNavDashboard" class="ctr-asideNavDashboard shrink-0 h-[100vh] bg-gray-950 transition-all sticky top-0 overflow-hidden w-0 sm:w-auto xl:w-80 -translate-x-full sm:translate-x-0" aria-label="Main Dashboard Navigation" wire:ignore>
                 <div class="cAsideNavDashboard mt-24 h-full flex flex-col max-xl:items-center max-xl:justify-center">

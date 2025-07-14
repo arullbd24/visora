@@ -1,6 +1,7 @@
 
 <?php
 
+use App\Http\Controllers\PaymentController;
 use App\Library\FileHelper;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -177,7 +178,7 @@ Route::middleware(['auth:web', 'log.user'])->group(function () {
 
 Route::get('d/files/{token}/view', [App\Http\Controllers\ViewFile_Controller::class, 'viewFile'])->name('view_file_token');
 Route::post('d/files/{token}/view/post', [App\Http\Controllers\ViewFile_Controller::class, 'viewFilePost'])->name('view_file_token_token');
-Route::get('/admin', [AdminController::class, 'index']);
+// Route::get('/admin', [AdminController::class, 'index']);
 
 // Route::get('/admin/dashboard', function () {
 //     return view('livewire.admin.layout.main');
@@ -355,15 +356,21 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function (): void {
     Route::delete('/services/{id}', [App\Http\Controllers\Admin\ServiceController::class, 'destroy'])->name('admin.services.destroy');
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
-Route::get('/pay', [\App\Http\Controllers\PaymentController::class, 'pay']);
-
-
+// Route::get('/pay', [\App\Http\Controllers\PaymentController::class, 'pay']);
 
 // Route::middleware(['auth', 'admin'])->group(function () {
 //     Route::get('/admin/dashboard', function () {
 //         return view('admin.dashboard'); // atau view Livewire-mu
 //     })->name('admin.dashboard');
 // });
+Route::middleware('auth')->group(function () {
+    // Route detail pembayaran berdasarkan ID order
+    Route::get('/payment/{order}', [PaymentController::class, 'show'])->name('payment.detail');
+
+    // Route untuk generate Snap token (Midtrans)
+    Route::get('/generate-snap-token/{order}', [PaymentController::class, 'generateSnapToken'])->name('payment.snap');
+});
+
 
 // Route::post('/signature/save-signature', [App\Livewire\Dashboard\Settings\Signatures\Signatures::class, 'storeDraw'])->name('signature.store.draw');
 // Route::post('/signature/upload-signature', [App\Livewire\Dashboard\Settings\Signatures\Signatures::class, 'storeUpload'])->name('signature.store.upload');
@@ -377,8 +384,8 @@ Route::get('/pay', [\App\Http\Controllers\PaymentController::class, 'pay']);
 
 
 
-Route::get('/testing_global', function () {
-    dump(Auth::check());
-    dump(Auth::guard('web')->check());
-    dump(Auth::guard('admin')->check());
-});
+// Route::get('/testing_global', function () {
+//     dump(Auth::check());
+//     dump(Auth::guard('web')->check());
+//     dump(Auth::guard('admin')->check());
+// });
