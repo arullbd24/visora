@@ -22,10 +22,11 @@ class AdminDashboardController extends Controller
         });
 
         $monthLabels = $months->map(fn($m) => $m->format('M Y'));
-        $serviceCounts = $months->map(fn($m) =>
+        $serviceCounts = $months->map(
+            fn($m) =>
             Service::whereYear('created_at', $m->year)
-                   ->whereMonth('created_at', $m->month)
-                   ->count()
+                ->whereMonth('created_at', $m->month)
+                ->count()
         );
 
         // Pemesanan terbaru
@@ -38,5 +39,21 @@ class AdminDashboardController extends Controller
             'serviceCounts',
             'recentOrders',
         ));
+    }
+    public function update(Request $request, Order $order)
+    {
+        $request->validate([
+            'harga_final' => 'nullable|string', // ubah jadi string dulu
+            'status' => 'required|string',
+        ]);
+
+        $cleanedHarga = str_replace('.', '', $request->harga_final); // buang semua titik
+
+        $order->update([
+            'harga_final' => is_numeric($cleanedHarga) ? intval($cleanedHarga) : null,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->back()->with('success', 'Pesanan berhasil diperbarui.');
     }
 }

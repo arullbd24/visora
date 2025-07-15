@@ -355,6 +355,7 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function (): void {
     Route::put('/services/{id}', [App\Http\Controllers\Admin\ServiceController::class, 'update'])->name('admin.services.update');
     Route::delete('/services/{id}', [App\Http\Controllers\Admin\ServiceController::class, 'destroy'])->name('admin.services.destroy');
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::put('/admin/orders/{order}', [AdminDashboardController::class, 'update'])->name('admin.orders.update');
 });
 // Route::get('/pay', [\App\Http\Controllers\PaymentController::class, 'pay']);
 
