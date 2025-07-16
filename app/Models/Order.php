@@ -10,6 +10,7 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'nama_pemesan',
         'email',
         'whatsapp',
@@ -17,8 +18,9 @@ class Order extends Model
         'tanggal_acara',
         'catatan',
         'status',
-        'harga_final' // tambahkan ini
+        'harga_final'
     ];
+
 
 
     public function user()

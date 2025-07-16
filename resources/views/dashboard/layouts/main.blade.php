@@ -24,6 +24,9 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <link rel="icon" href="{{ asset('assets/img/visora..png') }}" type="image/x-icon" data-navigate-track>
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="{{ config('midtrans.client_key') }}"></script>
+    <!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
     <link rel="stylesheet" href="{{ asset('main/css/s.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('main/css/header.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('main/css/font/poppins.css') }}" type="text/css">
@@ -72,8 +75,7 @@
 </head>
 
 <body class="bg-gray-50">
-    <div class="w-full py-2 px-4 bg-[#1c64f2]  fixed top-0 transition-all" aria-label="Global Navigation"
-        wire:ignore>
+    <div class="w-full py-2 px-4 bg-[#1c64f2]  fixed top-0 transition-all" aria-label="Global Navigation" wire:ignore>
         <div class="cHeadDashboard flex items-center justify-between">
             @include('dashboard.layouts.header')
             {{-- @livewire('dashboard.main.main') --}}

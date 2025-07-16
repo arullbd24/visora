@@ -2,6 +2,9 @@
 @section('title', 'Detail Pembayaran')
 
 @section('content')
+    {{-- Debug di payment.detail.blade.php --}}
+    {{-- {{ config('midtrans.client_key') }} --}}
+
     <div class="max-w-3xl mx-auto mt-10 bg-white shadow-lg rounded-xl p-6 border border-gray-200">
         <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">💳 Ringkasan Pesanan</h2>
 
@@ -38,7 +41,9 @@
                     class="inline-block px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow hover:bg-indigo-700 transition">
                     Bayar Sekarang
                 </button>
+                {{-- <p class="text-xs text-gray-500 mt-2">Snap Token: {{ $snapToken }}</p> --}}
             </div>
+
         @elseif($order->status === 'lunas')
             <div class="mt-6 text-center text-green-600 font-semibold">
                 Pembayaran telah diterima. Terima kasih!
@@ -51,15 +56,26 @@
     </div>
 
     @if ($order->harga_final && $order->status !== 'lunas')
-        <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
-        </script>
-        <script>
-            document.getElementById('pay-button').addEventListener('click', function() {
-                fetch('/generate-snap-token/{{ $order->id }}')
-                    .then(res => res.json())
-                    .then(data => {
-                        window.snap.pay(data.snapToken);
-                    });
+        <script type="text/javascript">
+            var payButton = document.getElementById('pay-button');
+            payButton.addEventListener('click', function() {
+                window.snap.pay('{{ $snapToken }}', {
+                    onSuccess: function(result) {
+                        alert("Payment Success!");
+                        console.log(result);
+                    },
+                    onPending: function(result) {
+                        alert("Waiting for payment...");
+                        console.log(result);
+                    },
+                    onError: function(result) {
+                        alert("Payment Failed!");
+                        console.log(result);
+                    },
+                    onClose: function() {
+                        alert("You closed the popup.");
+                    }
+                });
             });
         </script>
     @endif

@@ -4,81 +4,82 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
-use Illuminate\Support\Facades\Auth;
 use Midtrans\Snap;
 use Midtrans\Config;
+use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
     public function __construct()
     {
-        // parent::__construct(); // Panggil konstruktor parent agar bisa pakai middleware()
-        // $this->middleware('auth');
+        $this->configureMidtrans();
     }
 
-    public function pay()
+    /**
+     * Konfigurasi Midtrans
+     */
+    private function configureMidtrans(): void
     {
-        // Konfigurasi Midtrans
         Config::$serverKey = config('midtrans.server_key');
-        Config::$isProduction = config('midtrans.is_production');
-        Config::$isSanitized = true;
-        Config::$is3ds = true;
+        Config::$isProduction = config('midtrans.is_production', false);
+        Config::$isSanitized = config('midtrans.sanitized', true);
+        Config::$is3ds = config('midtrans.3ds', true);
 
-        // Dummy transaksi untuk testing
-        $params = [
-            'transaction_details' => [
-                'order_id' => 'VISORA-' . rand(1000, 9999),
-                'gross_amount' => 100000,
-            ],
-            'customer_details' => [
-                'first_name' => 'Delon',
-                'email' => 'delon@example.com',
-            ],
-        ];
+        // Tambahan: agar tidak error saat merge header
+        Config::$curlOptions[CURLOPT_HTTPHEADER] = [];
 
-        $snapToken = Snap::getSnapToken($params);
-
-        return view('payment', compact('snapToken'));
+        // Optional: untuk development (hilangkan di production)
+        Config::$curlOptions[CURLOPT_SSL_VERIFYPEER] = false;
     }
+
+    /**
+     * Tampilkan halaman pembayaran berdasarkan Order ID
+     */
+
+
 
     public function show($orderId)
     {
-        // Ambil data order berdasarkan ID
-        $order = \App\Models\Order::findOrFail($orderId);
+        $order = Order::findOrFail($orderId);
 
-        // // Cek user login sesuai pemilik order
-        // if (!auth()->check() || auth()->id() !== $order->user_id) {
-        //     abort(403, 'Unauthorized');
-        // }
-      return view('payment.detail', compact('order'));
+        // Batasi hanya pemilik order yang bisa melihat
+        if (auth()->id() !== $order->user_id) {
+            abort(403, 'Unauthorized');
+        }
+
+        // Validasi harga
+        $grossAmount = (int) ($order->harga_final ?? 0);
+
+        // Logging tambahan (opsional)
+        if ($grossAmount <= 0) {
+            Log::warning('Harga final order tidak valid', [
+                'order_id' => $order->id,
+                'harga_final' => $order->harga_final,
+            ]);
+
+            return redirect()->route('dashboard.main')->with('error', 'Harga layanan belum tersedia. Hubungi admin.');
+        }
+
+        // Siapkan parameter Midtrans Snap
+        $params = [
+            'transaction_details' => [
+                'order_id' => 'ORDER-' . $order->id . '-' . uniqid(),
+                'gross_amount' => $grossAmount,
+            ],
+            'customer_details' => [
+                'first_name' => $order->nama_pemesan ?? 'Pelanggan',
+                'email' => $order->email ?? 'default@email.com',
+                'phone' => $order->whatsapp ?? '08123456789',
+            ],
+        ];
+
+        // Dapatkan Snap Token
+        try {
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal mendapatkan token pembayaran: ' . $e->getMessage());
+        }
+
+        return view('payment.detail', compact('order', 'snapToken'));
     }
-
-    public function generateSnapToken($orderId)
-    {
-        // $order = Order::findOrFail($orderId);
-
-        // if (auth()->id() !== $order->user_id) {
-        //     abort(403);
-    }
-
-    //     Config::$serverKey = config('midtrans.server_key');
-    //     Config::$isProduction = config('midtrans.is_production');
-    //     Config::$isSanitized = true;
-    //     Config::$is3ds = true;
-
-    //     $params = [
-    //         'transaction_details' => [
-    //             'order_id' => 'VISORA-' . $order->id . '-' . rand(1000, 9999),
-    //             'gross_amount' => $order->harga_final,
-    //         ],
-    //         'customer_details' => [
-    //             'first_name' => $order->nama_pemesan,
-    //             'email' => $order->email,
-    //         ],
-    //     ];
-
-    //     $snapToken = Snap::getSnapToken($params);
-
-    //     return response()->json(['snapToken' => $snapToken]);
-    // }
 }

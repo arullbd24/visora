@@ -369,7 +369,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/payment/{order}', [PaymentController::class, 'show'])->name('payment.detail');
 
     // Route untuk generate Snap token (Midtrans)
-    Route::get('/generate-snap-token/{order}', [PaymentController::class, 'generateSnapToken'])->name('payment.snap');
+    Route::get('/generate-snap-token/{id}', [PaymentController::class, 'generateSnapToken']);
+    Route::post('/midtrans/callback', [PaymentController::class, 'callback']);
 });
 
 

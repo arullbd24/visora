@@ -6,4 +6,8 @@ return [
     'is_production' => env('MIDTRANS_IS_PRODUCTION', false),
     'sanitized' => true,
     '3ds' => true,
+    'curl_options' => [
+        CURLOPT_SSL_VERIFYPEER => false,
+    ],
+
 ];

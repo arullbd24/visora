@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\Order;
 
 class OrderController extends Controller
 {
@@ -25,23 +26,30 @@ class OrderController extends Controller
             'catatan'        => 'nullable|string',
         ]);
 
+        // Atur harga default berdasarkan nama layanan
+        $defaultHarga = match (strtolower($request->input('service_name'))) {
+            'event' => 5000000,
+            'dokumentasi' => 350000,
+            'pernikahan' => 1000000,
+            'company profile' => 5000000,
+            default => 250000, // harga default jika tidak dikenal
+        };
 
         try {
-            DB::table('orders')->insert([
+            $order = Order::create([
                 'user_id'        => Auth::id(),
                 'service_name'   => $request->input('service_name'),
                 'nama_pemesan'   => $request->input('nama_pemesan'),
-                'whatsapp'       => $request->input('whatsapp'), // ✅ Tambah ini
+                'whatsapp'       => $request->input('whatsapp'),
                 'email'          => $request->input('email'),
                 'tanggal_acara'  => $request->input('tanggal_acara'),
                 'catatan'        => $request->input('catatan'),
                 'status'         => 'Menunggu Konfirmasi',
-                'created_at'     => now(),
-                'updated_at'     => now(),
+                'harga_final'    => $defaultHarga, // ⬅️ nilai ini penting untuk Midtrans
             ]);
 
-
-            return redirect()->route('recommend.user')->with('success', 'Pesanan berhasil dikirim!');
+            return redirect()->route('payment.detail', ['order' => $order->id])
+                ->with('success', 'Pesanan berhasil dikirim!');
         } catch (\Exception $e) {
             return back()->with('error', 'Terjadi kesalahan saat menyimpan: ' . $e->getMessage());
         }
