@@ -63,8 +63,6 @@
                 Simpan & Lihat Rekomendasi
             </button>
         </form>
-
     </div>
 </div>
-
 @endsection

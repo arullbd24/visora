@@ -119,11 +119,9 @@
                         class="bg-blue-600 text-white text-sm px-4 py-2 rounded hover:bg-blue-700">
                         Pesan Sekarang
                     </a>
-                    
                 </div>
             @endforeach
         </div>
-
         {{-- Modal --}}
         @foreach ($recommendations as $index => $rekom)
             <div id="modal-{{ $index }}"
@@ -152,7 +150,6 @@
         </a>
     </div>
 </div>
-
 <script>
     function openModal(index) {
         document.getElementById('modal-' + index).classList.remove('hidden');
