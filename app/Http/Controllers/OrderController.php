@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\StatusPemesananUpdated;
 use App\Models\Order;
 
 class OrderController extends Controller
@@ -32,6 +33,8 @@ class OrderController extends Controller
             'dokumentasi' => 350000,
             'pernikahan' => 1000000,
             'company profile' => 5000000,
+            'wedding' => 5000000,
+            'graduation' => 5000000,
             default => 250000, // harga default jika tidak dikenal
         };
 
@@ -61,17 +64,23 @@ class OrderController extends Controller
         return view('admin.orders', compact('orders'));
     }
 
-    public function updateStatus($id, Request $request)
-    {
-        $request->validate([
-            'status' => 'required|string'
-        ]);
+    // public function updateStatus(Request $request, $id)
+    // {
+    //     $order = Order::findOrFail($id);
+    //     $order->status = $request->status;
+    //     $order->save();
 
-        DB::table('orders')->where('id', $id)->update([
-            'status' => $request->input('status'),
-            'updated_at' => now(),
-        ]);
+    //     $snapUrl = null;
 
-        return back()->with('success', 'Status pesanan diperbarui.');
-    }
+    //     if ($order->status === 'Menunggu Pembayaran') {
+    //         // Pastikan relasi ke pembayaran dan token Snap tersedia
+    //         $snapUrl = $order->pembayaran && $order->pembayaran->snap_token
+    //             ? 'https://app.midtrans.com/snap/v2/vtweb/' . $order->pembayaran->snap_token
+    //             : null;
+    //     }
+
+    //     $order->user->notify(new StatusPemesananUpdated($order->status, $snapUrl));
+
+    //     return redirect()->back()->with('success', 'Status pesanan berhasil diperbarui.');
+    // }
 }

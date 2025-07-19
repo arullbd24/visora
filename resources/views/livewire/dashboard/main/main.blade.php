@@ -1,69 +1,60 @@
-<section>
-    <div>
-        <header class="ctr-headerMainContent">
-            <div class="cHeaderMainContent">
-                <div class="txHeaderMainC">
-                    <div class="txHead text-xl font-semibold">
-                        <h1>Welcome {{ auth()->user()->userPersonal->fullname }}</h1>
-                    </div>
-                </div>
-                <div class="txDescHead mt-4">
-                    <div class="txMainDesc text-sm font-light text-gray-400">
-                        <p>Hi {{ auth()->user()->userPersonal->fullname }}! Discover your progress and important updates
-                            in your dashboard.</p>
-                    </div>
-                </div>
+<section class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8">
+            <div class="flex flex-col gap-2">
+                <h1 class="text-3xl font-bold text-gray-900">Welcome, {{ auth()->user()->userPersonal->fullname }}</h1>
+                <p class="text-gray-500 text-base">
+                    Hi {{ auth()->user()->userPersonal->fullname }}! Discover your progress and important updates in your dashboard.
+                </p>
             </div>
         </header>
-        <div class="container mx-auto px-4 py-8 min-h-screen">
-            <!-- Service Recommendations -->
-            <div id="serviceRecommendations">
-                <div class="flex items-center justify-between mb-6">
-                    <h2 id="selectedServiceTypeTitle" class="text-2xl font-bold text-gray-800">Rekomendasi Untuk Anda
-                    </h2>
-                    <a href="{{ route('rate') }}">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                            Lihat Rekomendasi
-                        </button>
+
+        <!-- Service Recommendations -->
+        <div class="bg-white rounded-xl shadow p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-semibold text-gray-800">Rekomendasi Untuk Anda</h2>
+                <a href="{{ route('rate') }}">
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+                        Lihat Rekomendasi
+                    </button>
+                </a>
+            </div>
+
+            <!-- Tabs -->
+            <ul class="flex gap-4 mb-6">
+                <li>
+                    <a href="#" class="px-4 py-2 rounded-lg bg-blue-50 text-blue-600 font-medium hover:bg-blue-100 transition">Semua</a>
+                </li>
+                <li>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition">Fotografi</a>
+                </li>
+                <li>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition">Videografi</a>
+                </li>
+                <li>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition">Booking</a>
+                </li>
+            </ul>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                @foreach([
+                    'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-3.png',
+                    'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80',
+                    'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
+                    'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80',
+                    'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=400&q=80',
+                    'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=400&q=80'
+                ] as $img)
+                <figure class="relative rounded-lg overflow-hidden shadow hover:shadow-lg transition">
+                    <a href="#">
+                        <img class="w-full h-48 object-cover" src="{{ $img }}" alt="Rekomendasi">
                     </a>
-                </div>
-
-
-                <div
-                    class="">
-                    <ul class="flex flex-wrap -mb-px">
-                        <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Semua</a>
-                        </li>
-                        <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500"
-                                aria-current="page">Fotografi</a>
-                        </li>
-                        <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Videografi</a>
-                        </li>
-                        <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Booking</a>
-                        </li>
-                        {{-- <li>
-                            <a
-                                class="inline-block p-4 text-gray-400 rounded-t-lg cursor-not-allowed dark:text-gray-500">Disabled</a>
-                        </li> --}}
-                    </ul>
-                </div>
-                {{-- <div class="mb-6">
-                    <div class="relative">
-                        <input type="text" placeholder="Cari layanan yang kamu mau"
-                            class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-[#1C64F2]">
-                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="recommendationsContainer">
-                </div> --}}
+                    <figcaption class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-4 py-2 text-white text-sm">
+                        Rekomendasi layanan untuk Anda
+                    </figcaption>
+                </figure>
+                @endforeach
             </div>
         </div>
     </div>

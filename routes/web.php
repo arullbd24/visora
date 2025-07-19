@@ -372,6 +372,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/generate-snap-token/{id}', [PaymentController::class, 'generateSnapToken']);
     Route::post('/midtrans/callback', [PaymentController::class, 'callback']);
 });
+// Route::patch('/notifications/{id}', function ($id) {
+//     $notification = auth()->user()->notifications()->findOrFail($id);
+//     $notification->markAsRead();
+//     return back();
+// })->name('notifications.read');
+
 
 
 // Route::post('/signature/save-signature', [App\Livewire\Dashboard\Settings\Signatures\Signatures::class, 'storeDraw'])->name('signature.store.draw');
