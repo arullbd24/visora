@@ -1,59 +1,49 @@
 <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-700 via-blue-600 to-blue-400">
     <div class="w-full max-w-md px-4">
-        <div class="bg-white/20 backdrop-blur-lg p-8 rounded-xl shadow-2xl">
+        <div class="bg-white/80 p-8 rounded-xl shadow-2xl">
             <div class="flex justify-center mb-6">
-                <div class="h-20 w-20 flex items-center justify-center rounded-full bg-white/30 shadow">
+                <div class="h-20 w-20 flex items-center justify-center rounded-full bg-blue-100 shadow">
                     <img src="{{ asset('assets/img/visora..png') }}" alt="" class="h-16 w-16 object-contain">
                 </div>
             </div>
             <h2 class="text-center text-3xl text-blue-900 font-extrabold mb-8 tracking-wide">Create an Account</h2>
-            <form wire:submit.prevent='store' id="registerForm">
-                <div class="relative mb-6">
+            <form wire:submit.prevent='store' id="registerForm" class="space-y-6">
+                <div>
+                    <label for="name" class="block mb-2 text-sm font-medium text-blue-900">Name</label>
                     <input required wire:model='fullname' type="text" id="name" name="name"
-                        class="input-field text-base block w-full px-4 py-3 bg-blue-50/80 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-900 placeholder-transparent transition">
-                    <label for="name"
-                        class="floating-label absolute text-blue-400 transition-all duration-300 top-3 left-4 pointer-events-none">Name</label>
+                        class="form-input block w-full rounded-lg border border-blue-300 bg-blue-50 text-blue-900 focus:ring-blue-500 focus:border-blue-500" placeholder="Your name">
                 </div>
-
-                <div class="relative mb-6">
+                <div>
+                    <label for="email" class="block mb-2 text-sm font-medium text-blue-900">Email</label>
                     <input required wire:model='email' type="email" id="email" name="email"
-                        class="input-field text-base block w-full px-4 py-3 bg-blue-50/80 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-900 placeholder-transparent transition">
-                    <label for="email"
-                        class="floating-label absolute text-blue-400 transition-all duration-300 top-3 left-4 pointer-events-none">Email</label>
+                        class="form-input block w-full rounded-lg border border-blue-300 bg-blue-50 text-blue-900 focus:ring-blue-500 focus:border-blue-500" placeholder="you@email.com">
                 </div>
-
-                <div class="relative mb-6">
+                <div>
+                    <label for="phone" class="block mb-2 text-sm font-medium text-blue-900">Phone Number</label>
                     <input required wire:model='phone_number' type="tel" id="phone" name="phone"
-                        class="input-field text-base block w-full px-4 py-3 bg-blue-50/80 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-900 placeholder-transparent transition">
-                    <label for="phone"
-                        class="floating-label absolute text-blue-400 transition-all duration-300 top-3 left-4 pointer-events-none">Phone Number</label>
+                        class="form-input block w-full rounded-lg border border-blue-300 bg-blue-50 text-blue-900 focus:ring-blue-500 focus:border-blue-500" placeholder="08xxxxxxxxxx">
                 </div>
-
-                <div class="relative mb-6">
+                <div>
+                    <label for="password" class="block mb-2 text-sm font-medium text-blue-900">Password</label>
                     <input required wire:model='password' type="password" id="password" name="password"
-                        class="input-field text-base block w-full px-4 py-3 bg-blue-50/80 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-900 placeholder-transparent transition">
-                    <label for="password"
-                        class="floating-label absolute text-blue-400 transition-all duration-300 top-3 left-4 pointer-events-none">Password</label>
+                        class="form-input block w-full rounded-lg border border-blue-300 bg-blue-50 text-blue-900 focus:ring-blue-500 focus:border-blue-500" placeholder="********">
                 </div>
-
-                <div class="relative mb-6">
+                <div>
+                    <label for="confirm_password" class="block mb-2 text-sm font-medium text-blue-900">Confirm Password</label>
                     <input required wire:model='confirm_password' type="password" id="confirm_password"
                         name="confirm_password"
-                        class="input-field text-base block w-full px-4 py-3 bg-blue-50/80 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-900 placeholder-transparent transition">
-                    <label for="confirm_password"
-                        class="floating-label absolute text-blue-400 transition-all duration-300 top-3 left-4 pointer-events-none">Confirm Password</label>
+                        class="form-input block w-full rounded-lg border border-blue-300 bg-blue-50 text-blue-900 focus:ring-blue-500 focus:border-blue-500" placeholder="********">
+                    @error('confirm_password')
+                        <span class="text-blue-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
-                @error('confirm_password')
-                    <span class="text-blue-500">{{ $message }}</span>
-                @enderror
-                <div class="relative flex items-center mb-4">
-                    <input required type="checkbox" id="terms" name="terms" class="mr-2 accent-blue-500">
-                    <label for="terms" class="text-sm text-blue-900">I agree to the <a href="#"
-                            class="text-blue-600 underline">terms and conditions</a>.</label>
+                <div class="flex items-center">
+                    <input required id="terms" name="terms" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                    <label for="terms" class="ml-2 text-sm text-blue-900">I agree to the <a href="#" class="text-blue-600 underline">terms and conditions</a>.</label>
                 </div>
                 <div id="terms-error" class="text-red-500 text-sm hidden mb-4">Please accept the terms and conditions.</div>
                 <button type="submit"
-                    class="w-full bg-gradient-to-r from-blue-600 to-blue-400 text-white font-semibold p-2 rounded-lg hover:from-blue-500 hover:to-blue-300 transition duration-200 shadow-lg">Register</button>
+                    class="w-full text-white bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-500 hover:to-blue-300 font-semibold rounded-lg text-base px-5 py-2.5 text-center shadow-lg transition duration-200">Register</button>
             </form>
             <div class="mt-6 text-center">
                 <span class="text-sm text-blue-900">Already have an account? <a href="{{ route('auth.login') }}"
@@ -72,23 +62,10 @@
             </div>
         </footer>
     </div>
-
     <script>
-        document.querySelectorAll('.input-field').forEach(input => {
-            input.addEventListener('focus', () => {
-                input.nextElementSibling.classList.add('label-active');
-            });
-            input.addEventListener('blur', () => {
-                if (input.value === '') {
-                    input.nextElementSibling.classList.remove('label-active');
-                }
-            });
-        });
-
         document.getElementById('registerForm').addEventListener('submit', function(event) {
             const termsCheckbox = document.getElementById('terms');
             const termsError = document.getElementById('terms-error');
-
             if (!termsCheckbox.checked) {
                 event.preventDefault();
                 termsError.classList.remove('hidden');
@@ -97,20 +74,4 @@
             }
         });
     </script>
-    <style>
-        .floating-label {
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 14px;
-        }
-        .label-active {
-            top: -12px;
-            left: 3px;
-            font-size: 12px;
-            color: #1C64F2;
-        }
-        #terms-error {
-            color: #ef4444;
-        }
-    </style>
 </div>

@@ -1,11 +1,10 @@
 @extends('dashboard.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-blue-200 p-6">
-        <div class="bg-white p-10 rounded-2xl shadow-lg w-full max-w-xl border border-blue-200">
-            <h2 class="text-3xl font-extrabold text-blue-800 mb-8 text-center tracking-wide">Form Pemesanan Layanan</h2>
-
-            <form method="POST" action="{{ route('order.submit') }}" class="space-y-6">
+    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-blue-200 p-4 sm:p-6">
+        <div class="bg-white p-4 sm:p-8 md:p-10 rounded-2xl shadow-lg w-full max-w-md sm:max-w-lg md:max-w-xl border border-blue-200">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-blue-800 mb-6 sm:mb-8 text-center tracking-wide">Form Pemesanan Layanan</h2>
+            <form method="POST" action="{{ route('order.submit') }}" class="space-y-4 sm:space-y-6">
                 @csrf
                 <input type="hidden" name="service_name" value="{{ $service }}">
 

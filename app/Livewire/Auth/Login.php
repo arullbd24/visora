@@ -42,35 +42,32 @@ class Login extends Component
     }
 
 
+public function authUser(){
+    if (Auth::guard('web')->attempt(['email' => $this->email, 'password' => $this->password])) {
+        $user = Auth::guard('web')->user();
 
-
-
-
-    public function authUser(){
-        if (Auth::guard('web')->attempt(['email' => $this->email, 'password' => $this->password])) {
-            $user = Auth::guard('web')->user();
-
-            try {
-                UserLibrary\Activity::createActivity(
-                    $user->id ?? $user->id_user,
-                    ['Account'],
-                    [
-                        'title' => 'Authenticate Account',
-                        'type' => 'authenticate',
-                        'entity' => 'account',
-                        'description' => ($user->userPersonal->fullname ?? $user->name) . ' login at ' . Carbon::now(),
-                        'changes' => []
-                    ]
-                );
-            } catch (\Throwable $e) {
-                Log::warning('Activity logging failed: ' . $e->getMessage());
-            }
-
-            return redirect()->route($user->is_admin ? 'admin.dashboard' : 'dashboard.main');
+        try {
+            UserLibrary\Activity::createActivity(
+                $user->id ?? $user->id_user,
+                ['Account'],
+                [
+                    'title' => 'Authenticate Account',
+                    'type' => 'authenticate',
+                    'entity' => 'account',
+                    'description' => ($user->userPersonal->fullname ?? $user->name) . ' login at ' . Carbon::now(),
+                    'changes' => []
+                ]
+            );
+        } catch (\Throwable $e) {
+            Log::warning('Activity logging failed: ' . $e->getMessage());
         }
 
-        session()->flash('error', 'Email atau password salah.');
+        return redirect()->route($user->is_admin ? 'admin.dashboard' : 'dashboard.main');
     }
+
+    $this->dispatch('showError', 'Email atau password salah.');
+}
+
 
     
     public function authAdmin(){

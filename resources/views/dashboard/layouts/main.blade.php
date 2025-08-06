@@ -75,100 +75,100 @@
 </head>
 
 <body class="bg-gray-50">
-    <<header class="fixed top-0 left-0 w-full z-50 bg-white shadow" aria-label="Global Navigation" wire:ignore>
-        <div class="w-full py-2 px-4 bg-[#1c64f2]">
+    <header class="fixed top-0 left-0 w-full z-50 shadow" aria-label="Global Navigation" wire:ignore
+        style="background: url('{{ asset('assets/img/company_profile-1.png') }}') center center / cover no-repeat;">
+        <div class="flex items-center justify-between px-4 py-2 w-full text-white bg-transparent">
             @include('dashboard.layouts.header')
         </div>
-        </header>
-        <div class="dashboard-content flex">
-            {{-- <aside id="id-asideNavDashboard" class="ctr-asideNavDashboard shrink-0 h-[100vh] bg-gray-950 transition-all sticky top-0 overflow-hidden w-0 sm:w-auto xl:w-80 -translate-x-full sm:translate-x-0" aria-label="Main Dashboard Navigation" wire:ignore>
+    </header>
+    <div class="dashboard-content flex">
+        {{-- <aside id="id-asideNavDashboard" class="ctr-asideNavDashboard shrink-0 h-[100vh] bg-gray-950 transition-all sticky top-0 overflow-hidden w-0 sm:w-auto xl:w-80 -translate-x-full sm:translate-x-0" aria-label="Main Dashboard Navigation" wire:ignore>
                 <div class="cAsideNavDashboard mt-24 h-full flex flex-col max-xl:items-center max-xl:justify-center">
                     @include('dashboard.layouts.sidebar')
                 </div>
             </aside> --}}
-            <div class="main-content overflow-c overflow-c-gray mt-24 flex-grow" aria-label="Container Main Content">
-                <main class="ml-0 sm:ml-2 min-h-screen mt-4">
-                    {{-- Nav Settings --}}
-                    @if (Str::contains(request()->route()->getName(), 'setting'))
-                        @include('dashboard.pages.setting.urlPathFrom')
-                    @endif
-                    {{-- Nav Documents --}}
-                    @if (Str::contains(request()->route()->getName(), 'documents') &&
-                            !Str::contains(request()->route()->getName(), 'upload'))
-                        @include('dashboard.pages.main.document.nav')
-                    @endif
-                    {{-- Nav Inbox --}}
-                    @if (Str::contains(request()->route()->getName(), 'inbox'))
-                        @include('dashboard.pages.main.inbox.nav')
-                    @endif
-                    <div class="cMainContentDashboard {{ Str::contains(request()->route()->getName(), 'setting') ? 'mt-10' : '' }} p-2"
-                        aria-label="Main Content">
+        <div class="main-content overflow-c overflow-c-gray mt-24 flex-grow" aria-label="Container Main Content">
+            <main class="ml-0 sm:ml-2 min-h-screen mt-4">
+                {{-- Nav Settings --}}
+                @if (Str::contains(request()->route()->getName(), 'setting'))
+                    @include('dashboard.pages.setting.urlPathFrom')
+                @endif
+                {{-- Nav Documents --}}
+                @if (Str::contains(request()->route()->getName(), 'documents') &&
+                        !Str::contains(request()->route()->getName(), 'upload'))
+                    @include('dashboard.pages.main.document.nav')
+                @endif
+                {{-- Nav Inbox --}}
+                @if (Str::contains(request()->route()->getName(), 'inbox'))
+                    @include('dashboard.pages.main.inbox.nav')
+                @endif
+                <div class="cMainContentDashboard {{ Str::contains(request()->route()->getName(), 'setting') ? 'mt-10' : '' }} p-2"
+                    aria-label="Main Content">
 
-                        @hasSection('content')
-                            @yield('content')
-                        @else
-                            {{ $slot ?? '' }}
-                        @endif
+                    @hasSection('content')
+                        @yield('content')
+                    @else
+                        {{ $slot ?? '' }}
+                    @endif
 
-                    </div>
-                </main>
-            </div>
-            @stack('additional-aside-dashboard')
+                </div>
+            </main>
         </div>
+        @stack('additional-aside-dashboard')
+    </div>
 
-        @stack('additional-content')
+    @stack('additional-content')
 
-        @if (Str::contains(request()->route()->getName(), 'documents') &&
-                !Str::contains(request()->route()->getName(), 'upload'))
-            @include('livewire.dashboard.context-menu.upload-document')
-            @include('livewire.dashboard.context-menu.modify-document')
-        @endif
+    @if (Str::contains(request()->route()->getName(), 'documents') &&
+            !Str::contains(request()->route()->getName(), 'upload'))
+        @include('livewire.dashboard.context-menu.upload-document')
+        @include('livewire.dashboard.context-menu.modify-document')
+    @endif
 
-        @persist('documents.upload')
-            @livewire('Dashboard.ContextMenu.Detail.Documents.UploadDocument')
-            <script src="{{ asset('assets/js/uploadFile.js') }}"></script>
-        @endpersist
-        {{-- <script>
+    @persist('documents.upload')
+        @livewire('Dashboard.ContextMenu.Detail.Documents.UploadDocument')
+        <script src="{{ asset('assets/js/uploadFile.js') }}"></script>
+    @endpersist
+    {{-- <script>
             document.addEventListener('contextmenu', function(e) {
                 window.event.returnValue = true;
             });
         </script> --}}
-        @if (!session()->has('timezone'))
-            @livewire('Set.SetTimezone')
-        @endif
-        <!-- Footer Global -->
-        <footer class="bg-[#1c64f2] text-center py-4 text-sm text-white mt-8">
-            <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-                <div class="sm:flex sm:items-center sm:justify-between">
-                    <a href="https://flowbite.com/"
-                        class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                        <img src="{{ asset('assets/img/visora..png') }}" class="h-20" alt="Flowbite Logo" />
-                        <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">Visora</span>
-                    </a>
-                    <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-white sm:mb-0 ">
-                        <li>
-                            <a href="#" class="hover:underline me-4 md:me-6">About</a>
-                        </li>
-                        <li>
-                            <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
-                        </li>
-                        <li>
-                            <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
-                        </li>
-                        <li>
-                            <a href="#" class="hover:underline">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-                <hr class="my-6 border-gray-200 sm:mx-auto  lg:my-8" />
-                <span class="block text-sm text-white sm:text-center">© 2025 <a href="https://flowbite.com/"
-                        class="hover:underline">Visora™</a>. All Rights Reserved.</span>
+    @if (!session()->has('timezone'))
+        @livewire('Set.SetTimezone')
+    @endif
+    <!-- Footer Global -->
+    <footer class="bg-gray-800 text-center py-4 text-sm text-white mt-8">
+        <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <a href="https://flowbite.com/" class="flex flex-col sm:flex-row items-center mb-4 sm:mb-0 space-y-2 sm:space-y-0 sm:space-x-3 rtl:space-x-reverse">
+                    <img src="{{ asset('assets/img/visora..png') }}" class="h-16 sm:h-20" alt="Flowbite Logo" />
+                    <span class="self-center text-xl sm:text-2xl font-semibold whitespace-nowrap text-white">Visora</span>
+                </a>
+                <ul class="flex flex-col sm:flex-row flex-wrap items-center gap-2 sm:gap-0 mb-4 sm:mb-0 text-sm font-medium text-white">
+                    <li>
+                        <a href="#" class="hover:underline px-2 py-1">About</a>
+                    </li>
+                    <li>
+                        <a href="#" class="hover:underline px-2 py-1">Privacy Policy</a>
+                    </li>
+                    <li>
+                        <a href="#" class="hover:underline px-2 py-1">Licensing</a>
+                    </li>
+                    <li>
+                        <a href="#" class="hover:underline px-2 py-1">Contact</a>
+                    </li>
+                </ul>
             </div>
-        </footer>
+            <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
+            <span class="block text-xs sm:text-sm text-white sm:text-center">© 2025 <a href="https://flowbite.com/"
+                    class="hover:underline">Visora™</a>. All Rights Reserved.</span>
+        </div>
+    </footer>
 
-        @livewireScripts
-        @livewireScriptConfig
-        {{-- <script>
+    @livewireScripts
+    @livewireScriptConfig
+    {{-- <script>
             document.addEventListener('livewire:load', function () {
                 Livewire.hook('message.sent', () => {
                     document.title = 'Loading...';
@@ -179,13 +179,13 @@
                 });
             });
         </script> --}}
-        <script>
-            Livewire.on('redirectTo', url => {
-                // Livewire.navigate(url);
-                console.log(url);
-            });
-        </script>
-        @stack('script-body-field')
+    <script>
+        Livewire.on('redirectTo', url => {
+            // Livewire.navigate(url);
+            console.log(url);
+        });
+    </script>
+    @stack('script-body-field')
 </body>
 
 </html>

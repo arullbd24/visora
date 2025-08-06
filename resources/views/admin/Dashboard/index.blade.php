@@ -1,7 +1,7 @@
 @extends('admin.layouts.admin')
 @section('title', 'Dashboard')
 @section('content')
-    <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
         <!-- Card: Total Layanan -->
         <div class="bg-white p-4 rounded-lg shadow flex items-center justify-between">
             <div>
@@ -35,7 +35,9 @@
     <!-- Chart Section -->
     <div class="bg-white p-4 rounded-lg shadow mb-4">
         <h3 class="text-base font-semibold mb-2 text-blue-800">Statistik Layanan Bulanan</h3>
-        <canvas id="serviceChart" height="80"></canvas>
+        <div class="w-full overflow-x-auto">
+            <canvas id="serviceChart" height="80"></canvas>
+        </div>
     </div>
     <!-- Recent Orders -->
     <div class="bg-white p-4 rounded-lg shadow mb-4">
@@ -85,6 +87,8 @@
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
                     y: {
@@ -95,4 +99,20 @@
             }
         });
     </script>
+    <style>
+        /* Responsive height for chart container */
+        #serviceChart {
+            min-width: 350px;
+            max-width: 100%;
+            height: 250px !important;
+        }
+        @media (max-width: 640px) {
+            .grid-cols-2, .sm\:grid-cols-2 {
+                grid-template-columns: 1fr !important;
+            }
+            #serviceChart {
+                height: 180px !important;
+            }
+        }
+    </style>
 @endsection
